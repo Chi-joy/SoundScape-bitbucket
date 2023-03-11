@@ -55,8 +55,6 @@ WriteMemoryCallback(void* contents, size_t size, size_t nmemb, void* userp)
 void getPlaylists(std::string accessToken)
 {
 
-                    //std::cout << "access token: ";
-        //std::cout << accessToken;
 
     CURL* curl_handle;
     CURLcode res;
@@ -73,12 +71,6 @@ void getPlaylists(std::string accessToken)
 
     /* specify URL to get */
 
-    //redirect them to this URL thatll let them log in, have a callback function where the token returned goes
-    // curl_easy_setopt(curl_handle, CURLOPT_URL, "https://accounts.spotify.com/authorize");
-    // curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, "client_id=f6d6bc1e9dce452eb812a9f9973925ee&response_type=code&redirect_uri=soundscape-login://callback");
-    // playlist-read-private%20playlist-read-collaborative%20user-modify-playback-state%20user-read-playback-state
-    //https://accounts.spotify.com/en/authorize?client_id=f6d6bc1e9dce452eb812a9f9973925ee&response_type=code&scope=playlist-read-private%20playlist-read-collaborative%20user-modify-playback-state%20user-read-playback-state&redirect_uri=soundscape-login://callback
-    
     
     curl_easy_setopt(curl_handle, CURLOPT_URL, "https://api.spotify.com/v1/me/playlists");
     curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, "GET");
@@ -93,13 +85,6 @@ void getPlaylists(std::string accessToken)
 
     /* send all data to this function  */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
-    //std::string myAuthCode = "AQBxraOPzSEXXWcm2q8UcIZC6mwYZa9SxQtRRleoiHKVTvrx6TG9SEfVDchOEQ1ymlhFVeOTkNSjKGceU1TuLol_SyGAhFCku7X3lxJjc02B_rS-LhK_OFYzWnujhDOHxoa8ssi3yKKKb1oeaZpFT3E8sQIp8qjRfRB6jf1vppsXE15oX0OMvkKAY-VXvBPGi29NuFD41kS_HfnZ0NuE66vgKpt2iXWYVE0FxFqGyCASsxcoFO_vh7v4gbz-TTBR-gbpjNQ02q1K4RcKERADdrIwiqH2Wl8Av2SerHNpR2oAvJYf-Y4Qe3W3ick";
-    //std::string redirectURI = "http%3A%2F%2Flocalhost%3A8080%2Fcallback";
-    //std::string clientId = "f6d6bc1e9dce452eb812a9f9973925ee";
-    //std::string clientSecret = "8971b907959143adaf59cd19f8ae04ce";
-    //std::string postFields = "grant_type=authorization_code&code=" + myAuthCode + "&redirect_uri=" + redirectURI + "&client_id=" + clientId + "&client_secret=" + clientSecret;
-    //string response;
-    //curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &response);
 
     /* we pass our 'chunk' struct to the callback function */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void*)&chunk);
@@ -122,27 +107,6 @@ void getPlaylists(std::string accessToken)
 	    //parse returned json
         nlohmann::json myjson = nlohmann::json::parse(chunk.memory);
 	    std::cout << chunk.memory;
-        //std::string accessToken = myjson["access_token"];
-        //std::cout << "access token: ";
-        //std::cout << accessToken;
-
-
-	    // //create vector of games
-        // vector<Game> vGame = createVector(myjson);
-        // int size = vGame.size();
-
-	    // //std output 
-        // for (int i = 0; i < size; i++) {
-        //     Game tempGame = vGame[i];
-        //     cout << tempGame.getHomeTeam();
-        //     cout << " vs. ";
-        //     cout << tempGame.getAwayTeam();
-        //     cout << ":   ";
-        //     cout << tempGame.getHomeScore();
-        //     cout << " - ";
-        //     cout << tempGame.getAwayScore() << endl;
-        // }
-
     }
 
     /* cleanup curl stuff */
@@ -173,14 +137,6 @@ void initRequest(std::string authCode)
     curl_handle = curl_easy_init();
 
     /* specify URL to get */
-
-    //redirect them to this URL thatll let them log in, have a callback function where the token returned goes
-    // curl_easy_setopt(curl_handle, CURLOPT_URL, "https://accounts.spotify.com/authorize");
-    // curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, "client_id=f6d6bc1e9dce452eb812a9f9973925ee&response_type=code&redirect_uri=soundscape-login://callback");
-    // playlist-read-private%20playlist-read-collaborative%20user-modify-playback-state%20user-read-playback-state
-    //https://accounts.spotify.com/en/authorize?client_id=f6d6bc1e9dce452eb812a9f9973925ee&response_type=code&scope=playlist-read-private%20playlist-read-collaborative%20user-modify-playback-state%20user-read-playback-state&redirect_uri=soundscape-login://callback
-    
-    
     curl_easy_setopt(curl_handle, CURLOPT_URL, "https://accounts.spotify.com/api/token");
     //curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, "client_id=f6d6bc1e9dce452eb812a9f9973925ee&response_type=code&scope=&redirect_uri=soundscape-login://callback");
     struct curl_slist * headers = NULL;
@@ -196,9 +152,6 @@ void initRequest(std::string authCode)
     std::string clientSecret = "8971b907959143adaf59cd19f8ae04ce";
     std::string postFields = "grant_type=authorization_code&code=" + myAuthCode + "&redirect_uri=" + redirectURI + "&client_id=" + clientId + "&client_secret=" + clientSecret;
     //string response;
-    //curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &response);
-
-    /* we pass our 'chunk' struct to the callback function */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void*)&chunk);
     curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postFields.c_str()); 
 
@@ -224,25 +177,6 @@ void initRequest(std::string authCode)
         // std::cout << accessToken;
         getPlaylists(accessToken);
         //std::cout << accessToken;
-
-
-
-	    // //create vector of games
-        // vector<Game> vGame = createVector(myjson);
-        // int size = vGame.size();
-
-	    // //std output 
-        // for (int i = 0; i < size; i++) {
-        //     Game tempGame = vGame[i];
-        //     cout << tempGame.getHomeTeam();
-        //     cout << " vs. ";
-        //     cout << tempGame.getAwayTeam();
-        //     cout << ":   ";
-        //     cout << tempGame.getHomeScore();
-        //     cout << " - ";
-        //     cout << tempGame.getAwayScore() << endl;
-        // }
-
     }
 
     /* cleanup curl stuff */

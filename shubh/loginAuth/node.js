@@ -7,7 +7,7 @@ const http = require('http');
 const app = express();
 const { readFile } = require('fs').promises;
 const fs = require('fs');
-const { spawn } = require('child_process');
+const { exec } = require('child_process');
 const path = require('path');
 var theAuthCode = null;
 
@@ -55,29 +55,14 @@ app.post('/playlists', (req, res) => {
   const directoryPath = path.resolve('../backend_getPlaylists');
   process.chdir(directoryPath);
 
-  //execute make command
-    
-  const child = spawn('make', ["-f","./Makefile"]);
-    // const child = spawn('./request1.cpp');
+  
 
-    child.on('error', (err) => {
-      console.error(`Error occurred in child process: ${err}`);
-    });
-    
-    child.on('close', (code) => {
-      console.log(`C++ process exited with code ${code}`);
-    });
-
-//execute executable
-    const exec = spawn('./output', [theAuthCode]);
-    // const child = spawn('./request1.cpp');
-
-    exec.on('error', (err) => {
-      console.error(`Error occurred in child process: ${err}`);
-    });
-    
-    exec.on('close', (code) => {
-      console.log(`C++ process exited with code ${code}`);
-    });
-});
+exec('make', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error executing make command: ${error}`);
+    return;
+  }
+  console.log(`make command output: ${stdout}`);
+}); 
+ });
 app.listen(process.env.PORT || 8080, () => console.log(`App available on http://localhost:8080`));

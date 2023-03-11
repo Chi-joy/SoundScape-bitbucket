@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string>
 
-int main(void)
+int main()
 {
     std::cout << "hello world" << std::endl;
     return 0;

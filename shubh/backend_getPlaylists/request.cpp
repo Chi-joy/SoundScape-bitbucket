@@ -157,7 +157,7 @@ void getPlaylists(std::string accessToken)
 }
 
 //make curl request
-void initRequest()
+void initRequest(std::string authCode)
 {
     CURL* curl_handle;
     CURLcode res;
@@ -189,7 +189,8 @@ void initRequest()
 
     /* send all data to this function  */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
-    std::string myAuthCode = "AQDkpByln0BlUIvmJWEoD_NOYxvzpYiCsI4uPFk6V2Jj0iyC2hKI0LMR1uz4dhTmmljIKWFE3c1BhLqKTsWqg_qjXS5FECpvppftH9D_YDK-jROOdavJKcGWmcCm9wNSAikm8qDvQ3VPxaG7qBwdxeaM70yHjJARxsMhdmJ-x-riqgfg4rdoo9vYxv_S5tZEB0Dg8-0Im7LtQtPF9gqZi5zt3Zm5oWkF9IajdzIyYxHQ4FuruXTr7B7UdINXf5B0ctL9XRGtsGis4xa4A3VdN_sGC3gTYN245yAzqXC5zkJusANfIWzQdG71Xck";
+    //std::string myAuthCode = "AQDkpByln0BlUIvmJWEoD_NOYxvzpYiCsI4uPFk6V2Jj0iyC2hKI0LMR1uz4dhTmmljIKWFE3c1BhLqKTsWqg_qjXS5FECpvppftH9D_YDK-jROOdavJKcGWmcCm9wNSAikm8qDvQ3VPxaG7qBwdxeaM70yHjJARxsMhdmJ-x-riqgfg4rdoo9vYxv_S5tZEB0Dg8-0Im7LtQtPF9gqZi5zt3Zm5oWkF9IajdzIyYxHQ4FuruXTr7B7UdINXf5B0ctL9XRGtsGis4xa4A3VdN_sGC3gTYN245yAzqXC5zkJusANfIWzQdG71Xck";
+    std::string myAuthCode = authCode;
     std::string redirectURI = "http%3A%2F%2Flocalhost%3A8080%2Fcallback";
     std::string clientId = "f6d6bc1e9dce452eb812a9f9973925ee";
     std::string clientSecret = "8971b907959143adaf59cd19f8ae04ce";

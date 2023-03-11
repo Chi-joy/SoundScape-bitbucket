@@ -8,6 +8,8 @@ const app = express();
 const { readFile } = require('fs').promises;
 const fs = require('fs');
 const { spawn } = require('child_process');
+const path = require('path');
+var theAuthCode = null;
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +39,7 @@ app.get('/callback', async (request, response) => {
 
     console.log(request.url);
     const codeA = url.parse(request.url, true).query.code;
+    theAuthCode = codeA;
     //console.log(c);
     fs.writeFile('authCode.txt', codeA, (err) => {
         if (err) throw err;
@@ -47,20 +50,33 @@ app.get('/callback', async (request, response) => {
 });
 
 app.post('/playlists', (req, res) => {
-    
-    
 
-    const child = spawn('./request1.cpp');
+  //go to backend code dir
+  const directoryPath = path.resolve('../backend_getPlaylists');
+  process.chdir(directoryPath);
+
+  //execute make command
     
-    child.stdout.on('data', (data) => {
-      console.log(`C++ output: ${data}`);
-    });
-    
-    child.stderr.on('data', (data) => {
-      console.error(`C++ error: ${data}`);
+  const child = spawn('make', ["-f","./Makefile"]);
+    // const child = spawn('./request1.cpp');
+
+    child.on('error', (err) => {
+      console.error(`Error occurred in child process: ${err}`);
     });
     
     child.on('close', (code) => {
+      console.log(`C++ process exited with code ${code}`);
+    });
+
+//execute executable
+    const exec = spawn('./output', [theAuthCode]);
+    // const child = spawn('./request1.cpp');
+
+    exec.on('error', (err) => {
+      console.error(`Error occurred in child process: ${err}`);
+    });
+    
+    exec.on('close', (code) => {
       console.log(`C++ process exited with code ${code}`);
     });
 });

@@ -1,48 +1,31 @@
-#include <iostream>
-#include <map>
-#include <set>
+#include "PlaylistMap.h"
 
-class Location {
-  private:
-    double latitude;
-    double longitude;
-};
 
-class Playlist {
-  // playlist class definition
-};
 
-class PlaylistMap{
-    public:
-        static std::set<PlaylistMap> PlaylistMaps;
 
-        PlaylistMap(Location location, Playlist playlist) {
 
-            this->location = location;
-            this->playlist = playlist;
-        }
 
-        void PlaylistMap::updatePlaylist(Playlist updatedPlaylist){
-          this->playlist = updatedPlaylist;
-        }
+
+
+void PlaylistMap::updatePlaylist(Playlist updatedPlaylist){
+    this->playlist = updatedPlaylist;
+}
         
-        void PlaylistMap::updateLocation(Location updatedLocation){
-          this-> location = updatedLocation;
-        }
+void PlaylistMap::updateLocation(Location updatedLocation){
+    this-> location = updatedLocation;
+}
 
-        Playlist PlaylistMap::getPlaylist(){
-          return this->playlist;
-        }
+Playlist PlaylistMap::getPlaylist(){
+    return this->playlist;
+}
         
-        Location PlaylistMap::getLocation(){
-          return this->location;
-        }
+Location PlaylistMap::getLocation(){
+    return this->location;
+}
 
 
-    private:
-        Location location;
-        Playlist playlist;
+    
 
-};
+
 
 // std::set<PlaylistMap> PlaylistMap::PlaylistMaps;

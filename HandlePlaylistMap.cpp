@@ -1,12 +1,12 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
-#include "PlaylistMap.cpp"
-#include "GoogleAPI.cpp"
+#include "PlaylistMap.h"
+#include "GoogleAPI.h"
 
 class HandlePlaylistMap{
 public:
-
+    /*
     //check if a specific playlistMap is inside the set
     bool checkInMap(PlaylistMap playlist){
         return PlaylistMap::PlaylistMaps.find(playlist) != PlaylistMap::PlaylistMaps.end();
@@ -18,7 +18,7 @@ public:
 
     void removePlaylistMap(PlaylistMap map){
         PlaylistMap::PlaylistMaps.erase(map);
-    }
+    }*/
     
 
 

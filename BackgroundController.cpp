@@ -1,30 +1,32 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
-#include "HandlePlaylistMap.cpp"
-#include "GoogleAPI.cpp"
-#include<io.h>
-#include <unistd.h> //LINUX ONLY IF YOU ARE ON WINDOWS USE <windows.h> and change sleep to 10000
-#include "PlaylistMap.cpp"
+//#include "HandlePlaylistMap.cpp"
+//#include "GoogleAPI.cpp"
+#include <io.h>
+//#include <unistd.h> //LINUX ONLY IF YOU ARE ON WINDOWS USE <windows.h> and change sleep to 10000
+#include <Windows.h>
+#include "PlaylistMap.h"
+#include "Location.h"
 
 class BackgroundController{
     
-    public:
+   /* public:
 
     //the current map the user is on
     PlaylistMap currentMap;
+    
+    //getting metadata
+    GoogleAPI Loc;
+    
 
     Location pingLocation(){
         
-        string url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuBwWaguCyTIdFl5bW7gSlNgdjKhe4yhA";
-        //getting metadata
-        GoogleAPI Loc = GoogleAPI(url);
-        Loc.getLocation();
-        string GEOLOC = Loc.locationResult();
+        
 
         //TO NAMASHI: make a location object with GEOLOC or have the google API return, then return it here   
-        Location currentLocation;
-        currentLocation.latitude = GEOLOG.latitude;
+        //Location currentLocation;
+        //currentLocation.latitude = GEOLOG.latitude;
 
         return(currentLocation);
         
@@ -37,16 +39,18 @@ class BackgroundController{
         //if match, then update currentMap to the one that it matches/
         // work on in phase 2
         
-    }
+    }*/
 
 };
 
 //run this
-int main() {
+/*int main() {
+    string url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuBwWaguCyTIdFl5bW7gSlNgdjKhe4yhA";
+    Loc = GoogleAPI(url);
+    Loc.getLocation();
+    std::cout << "Starting program... \n";
 
-    std::cout << "Starting program... \n"
-
-    while (true) {
+    while(true) {
         std::Location location = pingLocation();
         
         //checkMapChange(location);
@@ -56,9 +60,9 @@ int main() {
         std::cout << "Current location: " <<  << std::endl;
 
         
-        sleep(10); // sleep for 10 seconds
+        Windows::sleep(10); // sleep for 10 seconds
     }
 
     
     return 0;
-}
+}*/

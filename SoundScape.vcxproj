@@ -139,12 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Playlist.h" />
+    <ClInclude Include="PlaylistMap.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="GoogleAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="GoogleAPI.cpp" />
+    <ClCompile Include="HandlePlaylistMap.cpp" />
+    <ClCompile Include="PlaylistMap.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Location.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

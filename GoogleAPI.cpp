@@ -7,7 +7,7 @@
 using namespace std;
 using json = nlohmann::json;
 /*
-* Request()
+* GoogleAPI()
 * constructor for request
 * URL is a url for curl
 */
@@ -26,6 +26,7 @@ bool GoogleAPI::getLocation() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
     curl = curl_easy_init();
     if (curl) {
+        locationItems.clear();
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, my_write);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &locationItems);
@@ -51,18 +52,26 @@ bool GoogleAPI::getLocation() {
     }
     curl_global_cleanup();
     if (worked) {
+        cout << locationItems << endl;
         json data = json::parse(locationItems);
-        const auto& lat = data["location"]["lat"];
-        const auto& lng = data["location"]["lng"];
+        lat = data["location"]["lat"];
+        lng = data["location"]["lng"];
         //yourLocation = new Location(lat,lng);
         
-        //cout << lat << ":"<< lng << endl;
+        ;
     }
     return(worked);
         
 
 }
 //get result of request
-string GoogleAPI::locationResult() {
-    return locationItems;
+double GoogleAPI::getLocationLat() {
+    return lat;
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the 
+    //method instance in the header file too
+}
+double GoogleAPI::getLocationLng() {
+    return lng;
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the 
+    //method instance in the header file too
 }

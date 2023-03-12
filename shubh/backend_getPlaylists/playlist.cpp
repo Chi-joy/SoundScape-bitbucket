@@ -1,4 +1,5 @@
 #include "playlist.h"
+#include "song.h"
 
 using namespace Playlist;
 

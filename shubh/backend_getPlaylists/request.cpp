@@ -14,7 +14,7 @@ Assignment 1
 #include <stdlib.h>
 #include <string>
 
-
+#include "playlist.h"
 #include "request.h"
 //#include "spotifyApiDelegate.h"
 
@@ -48,7 +48,7 @@ WriteMemoryCallback(void* contents, size_t size, size_t nmemb, void* userp)
     memcpy(&(mem->memory[mem->size]), contents, realsize);
     mem->size += realsize;
     mem->memory[mem->size] = 0;
-
+    free(ptr);
     return realsize;
 }
 
@@ -106,7 +106,8 @@ void getPlaylists(std::string accessToken)
     {
 	    //parse returned json
         nlohmann::json myjson = nlohmann::json::parse(chunk.memory);
-	    std::cout << chunk.memory;
+       // createVector(myjson);
+	std::cout << chunk.memory;
     }
 
     /* cleanup curl stuff */
@@ -118,6 +119,41 @@ void getPlaylists(std::string accessToken)
     /* we are done with libcurl, so clean it up */
     curl_global_cleanup();
 
+}
+
+vector<Playlist::playlist> createVector(nlohmann::json & myjson) {
+    vector<Playlist::playlist> vPlaylist;
+
+    auto& playlists = myjson["items"];
+
+//for every date...
+    for (int i = 0; i < playlists.items(); i++)
+    {
+        try {
+        auto z = playlists[i];
+        if (z.is_null()) {
+            break;
+        }
+        std::string uri = playlists[i]["uri"];
+        std::string name = playlists[i]["name"];
+        std::string coverURL = playlists[i]["images"][0]["url"];
+        std::cout << name ;
+
+        //has location will be set to false, override with association json
+        bool hasLocation = false;
+        Playlist::playlist tempPlaylist(name, uri, coverURL, hasLocation);
+        vPlaylist.push_back(tempPlaylist);
+        }
+
+        catch (...) {
+            std::cout << "you fucked up somewhere";
+        }
+            
+
+    }
+    
+    return vPlaylist;
+    
 }
 
 //make curl request

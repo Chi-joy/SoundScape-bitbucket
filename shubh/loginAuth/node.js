@@ -65,4 +65,4 @@ exec('make', (error, stdout, stderr) => {
   console.log(`make command output: ${stdout}`);
 }); 
  });
-app.listen(process.env.PORT || 8080, () => console.log(`App available on http://localhost:8080`));
+app.listen(process.env.PORT || 8080, () => console.log(`App available on http://localhost:8080/callback`));

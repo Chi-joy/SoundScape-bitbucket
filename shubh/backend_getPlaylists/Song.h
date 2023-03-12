@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 
+#ifndef SONG_H   // To make sure you don't declare the function more than once by including the header multiple times.
+#define SONG_H
+
 namespace Song {
     
     class song {
@@ -25,3 +28,5 @@ namespace Song {
     };
     
 }
+
+#endif

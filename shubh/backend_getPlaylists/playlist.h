@@ -1,7 +1,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Song.h"
+
+#ifndef PLAYLIST_H   // To make sure you don't declare the function more than once by including the header multiple times.
+#define PLAYLIST_H
 
 namespace Playlist {
     
@@ -11,7 +13,7 @@ namespace Playlist {
         std::string playlistName;
         std::string playlistURI;
         std::string playlistCoverURI;
-        std::vector<Song::song> songVector;
+        //std::vector<Song::song> sVector;
         bool hasLocation;
 
     public:
@@ -32,3 +34,5 @@ namespace Playlist {
 
     
 }
+
+#endif

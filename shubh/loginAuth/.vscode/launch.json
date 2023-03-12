@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": true,
+      "externalConsole": false,
+      "cwd": "/Users/shubhfageria/Desktop/Fifth year /second semester/CS3307/groupProject/loginAuth",
+      "program": "/Users/shubhfageria/Desktop/Fifth year /second semester/CS3307/groupProject/loginAuth/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb"
+    }
+  ]
+}

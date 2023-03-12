@@ -38,12 +38,7 @@ class PlaylistMap{
           return this->location;
         }
 
-        bool PlaylistMap::checkOverlap(Location input){
-          
-          
-          // if lang/long same? Check with google API for this
-          return 0;
-        } 
+
     private:
         Location location;
         Playlist playlist;

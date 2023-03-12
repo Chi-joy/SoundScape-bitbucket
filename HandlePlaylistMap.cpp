@@ -2,20 +2,10 @@
 #include <chrono>
 #include <ctime>
 #include "PlaylistMap.cpp"
+#include "GoogleAPI.cpp"
 
 class HandlePlaylistMap{
 public:
-
-    PlaylistMap currentMap;
-
-    Location pingLocation(){
-        while(true){
-            //get current location
-
-            //std::this_thread::sleep_for(std::chrono::seconds(10));  
-            
-        }
-    }
 
     //check if a specific playlistMap is inside the set
     bool checkInMap(PlaylistMap playlist){
@@ -28,13 +18,6 @@ public:
 
     void removePlaylistMap(PlaylistMap map){
         PlaylistMap::PlaylistMaps.erase(map);
-    }
-
-
-    //call this from your main alongside pingLocation
-    // i.e main: while true sleep 10 checkMapChange(pingLocation) + print(pingLocation)
-    void checkMapChange(Location currentLocation){
-        
     }
     
 

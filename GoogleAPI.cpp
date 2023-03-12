@@ -5,6 +5,7 @@
 */
 #include "GoogleAPI.h"
 using namespace std;
+using json = nlohmann::json;
 /*
 * Request()
 * constructor for request
@@ -49,6 +50,14 @@ bool GoogleAPI::getLocation() {
         }
     }
     curl_global_cleanup();
+    if (worked) {
+        json data = json::parse(locationItems);
+        const auto& lat = data["location"]["lat"];
+        const auto& lng = data["location"]["lng"];
+        //yourLocation = new Location(lat,lng);
+        
+        //cout << lat << ":"<< lng << endl;
+    }
     return(worked);
         
 

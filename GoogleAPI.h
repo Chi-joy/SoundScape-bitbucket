@@ -9,12 +9,14 @@
 #include <cstring>
 #include <iostream>
 #include <curl/curl.h>
+#include "json.hpp"
 
 class GoogleAPI
 {
 private:
 	std::string url;
     std::string locationItems;
+    //Location yourLocation;
     static size_t my_write(void* buffer, size_t size, size_t nmemb, void* param)
     {
         std::string& text = *static_cast<std::string*>(param);

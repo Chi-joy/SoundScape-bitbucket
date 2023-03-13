@@ -242,7 +242,7 @@ QString initRequest(std::string authCode)
     curl_easy_cleanup(curl_handle);
     curl_slist_free_all(headers);
 
-    free(chunk.memory);
+    //free(chunk.memory);
 
     /* we are done with libcurl, so clean it up */
     curl_global_cleanup();

@@ -15,6 +15,9 @@ public:
     LoginWindow(QWidget *parent = nullptr);
     ~LoginWindow();
 
+private slots:
+    void on_pushButton_login_clicked();
+
 private:
     Ui::LoginWindow *ui;
     void createSpotifyObject();

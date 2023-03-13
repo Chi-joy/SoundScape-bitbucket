@@ -41,12 +41,11 @@ void SpotifyAPI::setUpAuth() {
     this->spotifyAuth->setAccessTokenUrl(QUrl(TOKEN_URL));
     this->spotifyAuth->setClientIdentifierSharedKey(CLIENT_SECRET);
 
+    std::string r = "redirect_uri";
+    this->spotifyAuth->setProperty(r.c_str(),QVariant::fromValue(REDIRECT_URL));
+
 
     this->spotifyAuth->setModifyParametersFunction([](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
-        if (stage == QAbstractOAuth::Stage::RequestingAccessToken) {
-           QByteArray code = parameters->value("code").toByteArray();
-           (*parameters)["code"] = QUrl::fromPercentEncoding(code);
-        }
         if(stage == QAbstractOAuth::Stage::RequestingAuthorization){
             parameters->insert("redirect_uri",QUrl("http://127.0.0.1:8080/callback"));
             //something breaks here ... but on web it says success...cant get right data??
@@ -60,19 +59,10 @@ void SpotifyAPI::setUpAuth() {
 
     this->spotifyAuth->setReplyHandler(replyHandler);
 
-
-    connect(this->spotifyAuth, &QOAuth2AuthorizationCodeFlow::granted, [=](){
-            this->accessToken = this->spotifyAuth->token();
-            //emit gotToken(this->accessToken);
-    });
-//   connect(this->spotifyAuth, &QOAuth2AuthorizationCodeFlow::authorizationCallbackReceived,(QMap<Qt::Key, QVariant> * map) {
-
-//               auto idk = map.begin();
-//           });
-
     connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
         auto authCoded = map.value("code");
         this->accessToken = initRequest(authCoded.toString().toStdString());
+
         auto stop = "sgfojhdf";
 
     });

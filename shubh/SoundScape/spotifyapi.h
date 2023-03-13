@@ -3,6 +3,7 @@
 
 #include "QtNetworkAuth/qoauth2authorizationcodeflow.h"
 #include <QObject>
+#include "request.h"
 
 class SpotifyAPI : public QObject
 {
@@ -15,7 +16,8 @@ public:
 private:
 
     QOAuth2AuthorizationCodeFlow * spotifyAuth;
-    void authorizationCallbackReceived(const QString &callbackUri);
+    void setToken();
+    void setAuthCode(QVariant v);
     QString authCode;
     QString accessToken;
 

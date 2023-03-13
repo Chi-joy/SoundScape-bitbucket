@@ -2,6 +2,7 @@
 
 #include "QtNetworkAuth/qoauthhttpserverreplyhandler.h"
 
+
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QOAuthHttpServerReplyHandler>
 
@@ -64,7 +65,16 @@ void SpotifyAPI::setUpAuth() {
             this->accessToken = this->spotifyAuth->token();
             //emit gotToken(this->accessToken);
     });
-   connect(this->spotifyAuth, &QOAuth2AuthorizationCodeFlow::authorizationCallbackReceived, [=]));
+//   connect(this->spotifyAuth, &QOAuth2AuthorizationCodeFlow::authorizationCallbackReceived,(QMap<Qt::Key, QVariant> * map) {
+
+//               auto idk = map.begin();
+//           });
+
+    connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
+        auto authCoded = map.value("code");
+        setAuthCode(authCoded);
+
+    });
 
 
 
@@ -72,27 +82,18 @@ void SpotifyAPI::setUpAuth() {
     //LoginWindow::authenticate();
 }
 
-void SpotifyAPI::authorizationCallbackReceived(const QString &callbackUri)
-{
-    QUrl callbackURL = QUrl(callbackUri);
-    QUrlQuery query(callbackURL.query());
-    QString code = query.queryItemValue("code");
-    if (!code.isEmpty()) {
-                // Use the authorization code to request an access token from the OAuth provider
-        //QOAuth2AuthorizationCodeFlow *oauth2 = qobject_cast<QOAuth2AuthorizationCodeFlow *>(sender());
-        //oauth2->setCode(code);
-        //oauth2->grant();
+void SpotifyAPI::setAuthCode(QVariant v) {
+    this->authCode = v.toString();
+}
 
-        this->authCode = code;
-    } else {
-                // Handle error cases
-    }
-
+void SpotifyAPI::setToken() {
+    initRequest(this->authCode);
 }
 
 void SpotifyAPI::authenticate() {
 
     this->setUpAuth();
     this->spotifyAuth->grant();
+    setToken();
 
 }

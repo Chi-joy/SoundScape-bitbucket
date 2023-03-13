@@ -6,17 +6,25 @@ QT += networkauth
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++11
+
+
+LIBS += -lcurl
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Song.cpp \
     main.cpp \
     loginwindow.cpp \
+    playlist.cpp \
+    request.cpp \
     spotifyapi.cpp
 
 HEADERS += \
+    Song.h \
     curl/curl.h \
     curl/curlver.h \
     curl/easy.h \
@@ -31,6 +39,8 @@ HEADERS += \
     curl/websockets.h \
     json.hpp \
     loginwindow.h \
+    playlist.h \
+    request.h \
     spotifyapi.h
 
 
@@ -49,8 +59,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    ../../../../../../Downloads/curl-5ab5018bf8f0e39957d264f33c3eeddd958ed5d8-include/curl/curlbuild.h.cmake \
-    ../../../../../../Downloads/curl-5ab5018bf8f0e39957d264f33c3eeddd958ed5d8-include/curl/stamp-h3 \
-    ../cs3307_gc/curl/Makefile.am \
-    ../make_getPlaylists/curl/Makefile.am \
     curl/Makefile.am

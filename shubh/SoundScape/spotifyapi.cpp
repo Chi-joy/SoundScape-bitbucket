@@ -72,7 +72,8 @@ void SpotifyAPI::setUpAuth() {
 
     connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
         auto authCoded = map.value("code");
-        setAuthCode(authCoded);
+        this->accessToken = initRequest(authCoded.toString().toStdString());
+        auto stop = "sgfojhdf";
 
     });
 
@@ -82,18 +83,16 @@ void SpotifyAPI::setUpAuth() {
     //LoginWindow::authenticate();
 }
 
-void SpotifyAPI::setAuthCode(QVariant v) {
-    this->authCode = v.toString();
+void SpotifyAPI::setAuthCode(QString v) {
+    this->authCode = v;
 }
 
-void SpotifyAPI::setToken() {
-    initRequest(this->authCode);
-}
+
 
 void SpotifyAPI::authenticate() {
 
     this->setUpAuth();
     this->spotifyAuth->grant();
-    setToken();
+    //setToken();
 
 }

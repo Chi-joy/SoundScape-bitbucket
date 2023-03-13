@@ -7,6 +7,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++11
+CONFIG += console
 
 
 LIBS += -lcurl

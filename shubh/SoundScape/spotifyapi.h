@@ -17,7 +17,7 @@ private:
 
     QOAuth2AuthorizationCodeFlow * spotifyAuth;
     void setToken();
-    void setAuthCode(QVariant v);
+    void setAuthCode(QString v);
     QString authCode;
     QString accessToken;
 

@@ -47,12 +47,13 @@ HEADERS += \
 
 
 FORMS += \
-    loginwindow.ui
+    loginwindow.ui \
 
 TRANSLATIONS += \
     SoundScape_en_CA.ts
 CONFIG += lrelease
 CONFIG += embed_translations
+CONFIG += sdk_no_version_check
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -46,9 +46,11 @@ void SpotifyAPI::setUpAuth() {
 
 
 
-    this->spotifyAuth->setModifyParametersFunction([this](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
+    this->spotifyAuth->setModifyParametersFunction([this, SCOPES](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
         if(stage == QAbstractOAuth::Stage::RequestingAuthorization){
             parameters->insert("redirect_uri",QUrl("http://127.0.0.1:8080/callback"));
+            //parameters->insert("redirect_uri","http%3A%2F%2F127.0.0.1%3A8080%2Fcallback");
+            parameters->insert("scope", SCOPES);
             //something breaks here ... but on web it says success...cant get right data??
 
         } if(stage == QAbstractOAuth::Stage::RequestingAccessToken) {

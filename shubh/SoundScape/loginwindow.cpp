@@ -23,6 +23,8 @@ void LoginWindow::createSpotifyObject() {
     SpotifyAPI * spotifyAPI;
     spotifyAPI = new SpotifyAPI();
     spotifyAPI->authenticate();
+    ui->pushButton_spotify->hide();
+    ui->pushButton_playlists->show();
 }
 
 LoginWindow::~LoginWindow()
@@ -45,5 +47,11 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->pushButton_spotify->show();
 
     }
+}
+
+
+void LoginWindow::on_pushButton_playlists_clicked()
+{
+
 }
 

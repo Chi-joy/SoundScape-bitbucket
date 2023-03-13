@@ -118,6 +118,19 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pushButton_playlists">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>390</y>
+      <width>171</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get My Playlists</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

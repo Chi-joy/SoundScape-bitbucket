@@ -41,18 +41,30 @@ void SpotifyAPI::setUpAuth() {
     this->spotifyAuth->setAccessTokenUrl(QUrl(TOKEN_URL));
     this->spotifyAuth->setClientIdentifierSharedKey(CLIENT_SECRET);
 
-    std::string r = "redirect_uri";
-    this->spotifyAuth->setProperty(r.c_str(),QVariant::fromValue(REDIRECT_URL));
+//    std::string r = "redirect_uri";
+//    this->spotifyAuth->setProperty(r.c_str(),QVariant::fromValue(REDIRECT_URL));
 
 
-    this->spotifyAuth->setModifyParametersFunction([](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
+
+    this->spotifyAuth->setModifyParametersFunction([this](QAbstractOAuth::Stage stage, QVariantMap* parameters) {
         if(stage == QAbstractOAuth::Stage::RequestingAuthorization){
             parameters->insert("redirect_uri",QUrl("http://127.0.0.1:8080/callback"));
             //something breaks here ... but on web it says success...cant get right data??
 
+        } if(stage == QAbstractOAuth::Stage::RequestingAccessToken) {
+            parameters->insert("redirect_uri",QUrl("http://127.0.0.1:8080/callback"));
+            parameters->insert("code",this->authCode);
+            parameters->insert("grant_type", "client_credentials");
+            //parameters->insert("port",8080);
+            //return;
         }
 
 
+
+    });
+
+    connect(this->spotifyAuth,  &QOAuth2AuthorizationCodeFlow::granted, [this](){
+        auto stop = "sgfojhdf";
     });
 
     QOAuthHttpServerReplyHandler * replyHandler = new QOAuthHttpServerReplyHandler(PORT_NUM, this);
@@ -61,12 +73,13 @@ void SpotifyAPI::setUpAuth() {
 
     connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
         auto authCoded = map.value("code");
+        this->authCode = authCoded.toString();
         this->accessToken = initRequest(authCoded.toString().toStdString());
 
-        auto stop = "sgfojhdf";
+
+
 
     });
-
 
 
 
@@ -75,6 +88,7 @@ void SpotifyAPI::setUpAuth() {
 
 void SpotifyAPI::setAuthCode(QString v) {
     this->authCode = v;
+    initRequest(v.toStdString());
 }
 
 
@@ -83,6 +97,7 @@ void SpotifyAPI::authenticate() {
 
     this->setUpAuth();
     this->spotifyAuth->grant();
-    //setToken();
+
+    ///catch error statement???
 
 }

@@ -1,0 +1,4 @@
+C:\Users\DELL\Desktop\SCHOOL\4th Year\3307\SoundScape\x64\Debug\SoundScape.vcxproj.CopyComplete
+C:\Users\DELL\Desktop\SCHOOL\4th Year\3307\SoundScape\x64\Debug\SoundScape.exe
+C:\Users\DELL\Desktop\SCHOOL\4th Year\3307\SoundScape\x64\Debug\libcurl-d.dll
+C:\Users\DELL\Desktop\SCHOOL\4th Year\3307\SoundScape\x64\Debug\zlibd1.dll

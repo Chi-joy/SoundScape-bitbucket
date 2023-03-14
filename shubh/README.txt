@@ -1,4 +1,3 @@
-login auth -> node node.js in command line and then open localhost:8080 in browser
-----might have to download some npm modules
+download soundscape and open all files in qtcreator, build & run. 
 
-getPlaylists -> 'make' in the dir. but authcode in request.cpp needs to be replaced with the one in loginAuth/authCode.txt manually rn, after running loginauth 
+also the coordinates pop up but the google header breaks getPlaylists. if i remove the header getPLaylist runs.... literally wtf kill me now i hate my life

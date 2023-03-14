@@ -17,7 +17,12 @@ LIBS += -lcurl
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    GoogleAPI.cpp \
+    HandlePlaylistMap.cpp \
+    Location.cpp \
+    PlaylistMap.cpp \
     Song.cpp \
+    googleDelegate.cpp \
     main.cpp \
     loginwindow.cpp \
     playlist.cpp \
@@ -25,6 +30,9 @@ SOURCES += \
     spotifyapi.cpp
 
 HEADERS += \
+    GoogleAPI.h \
+    Location.h \
+    PlaylistMap.h \
     Song.h \
     curl/curl.h \
     curl/curlver.h \
@@ -61,4 +69,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    curl/Makefile.am
+    curl/Makefile.am \
+    main.qml

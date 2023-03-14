@@ -163,7 +163,7 @@ font: QFont f(&quot;Helvetica&quot;);</string>
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -174,7 +174,7 @@ font: QFont f(&quot;Helvetica&quot;);</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2"/>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -185,13 +185,13 @@ font: QFont f(&quot;Helvetica&quot;);</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3"/>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>300</x>
       <y>300</y>
       <width>261</width>
-      <height>91</height>
+      <height>100</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -203,15 +203,22 @@ font: QFont f(&quot;Helvetica&quot;);</string>
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_coor">
+       <property name="text">
+        <string>Get my coordinates</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_playlists">
        <property name="text">
-        <string>Get My Playlists</string>
+        <string>Get my Playlists</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="groupBox_playlists">
     <property name="geometry">
      <rect>
       <x>10</x>

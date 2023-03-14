@@ -20,6 +20,8 @@ private slots:
 
     void on_pushButton_playlists_clicked();
 
+    void on_pushButton_coor_clicked();
+
 private:
     Ui::LoginWindow *ui;
     void createSpotifyObject();

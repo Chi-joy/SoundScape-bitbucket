@@ -13,6 +13,7 @@ public:
     void authenticate();
     void setUpAuth();
     void callGetPlaylist();
+    void downloadFinished(QNetworkReply * reply);
 
 private:
 

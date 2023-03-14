@@ -9,6 +9,9 @@
 
 #include <QDesktopServices>
 #include <QUrlQuery>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 
 SpotifyAPI::SpotifyAPI(QObject *parent)
@@ -67,17 +70,20 @@ void SpotifyAPI::setUpAuth() {
 
     connect(this->spotifyAuth,  &QOAuth2AuthorizationCodeFlow::granted, [this](){
         auto stop = "sgfojhdf";
+        callGetPlaylist();
+
+
     });
 
-    QOAuthHttpServerReplyHandler * replyHandler = new QOAuthHttpServerReplyHandler(PORT_NUM, this);
+        QOAuthHttpServerReplyHandler * replyHandler = new QOAuthHttpServerReplyHandler(PORT_NUM, this);
 
-    this->spotifyAuth->setReplyHandler(replyHandler);
+        this->spotifyAuth->setReplyHandler(replyHandler);
 
-    connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
-        auto authCoded = map.value("code");
-        this->authCode = authCoded.toString();
-        this->accessToken = initRequest(authCoded.toString().toStdString());
-    });
+        connect(replyHandler, &QOAuthHttpServerReplyHandler::callbackReceived, [this](const QVariantMap &map) {
+            auto authCoded = map.value("code");
+            this->authCode = authCoded.toString();
+            this->accessToken = initRequest(authCoded.toString().toStdString());
+        });
 
 
 
@@ -89,8 +95,23 @@ void SpotifyAPI::setAuthCode(QString v) {
     initRequest(v.toStdString());
 }
 
+void SpotifyAPI::downloadFinished(QNetworkReply * reply) {
+    auto data = reply->readAll();
+}
+
 void SpotifyAPI::callGetPlaylist() {
-    getPlaylists(this->accessToken.toStdString());
+    QNetworkAccessManager * accessManager = new QNetworkAccessManager(this);
+    connect(accessManager, &QNetworkAccessManager::finished,this, &SpotifyAPI::downloadFinished);
+
+    const QUrl url = QUrl("https://api.spotify.com/v1/me/playlists");
+    QNetworkRequest m_networkRequest(url);
+    m_networkRequest.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+    m_networkRequest.setRawHeader("Accept", "application/json");
+    std::string authBearder = "Bearer " + this->accessToken.toStdString();
+    m_networkRequest.setRawHeader("Authorization", authBearder.c_str());
+    accessManager->get(m_networkRequest);
+
+//    getPlaylists(this->accessToken.toStdString());
 }
 
 

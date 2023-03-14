@@ -1,7 +1,7 @@
 
-#include "QtCore/qstring.h"
 #include "playlist.h"
 #include "json.hpp"
+
 
 
 #ifndef REQUEST_H   // To make sure you don't declare the function more than once by including the header multiple times.

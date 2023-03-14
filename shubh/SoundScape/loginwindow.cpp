@@ -1,7 +1,7 @@
 #include "loginwindow.h"
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
-//#include "GoogleAPI.h"
+#include "GoogleAPI.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -83,16 +83,16 @@ void LoginWindow::on_pushButton_playlists_clicked()
 
 void LoginWindow::on_pushButton_coor_clicked()
 {
-//    std::string url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuBwWaguCyTIdFl5bW7gSlNgdjKhe4yhA";
-//    GoogleAPI googleAPI(url);
-//    bool worked = googleAPI.getLocation();
-//    if (worked) {
-//        QString lat = QString::number( googleAPI.getLocationLat());
-//        QString lng = QString::number(googleAPI.getLocationLng());
-//        QString message = "Latitude: " + lat + " Longitude: " + lng;
-//        QMessageBox::information(this, "your location is....", message);
+    std::string url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuBwWaguCyTIdFl5bW7gSlNgdjKhe4yhA";
+    GoogleAPI googleAPI(url);
+    bool worked = googleAPI.getLocation();
+    if (worked) {
+        QString lat = QString::number( googleAPI.getLocationLat());
+        QString lng = QString::number(googleAPI.getLocationLng());
+        QString message = "Latitude: " + lat + " Longitude: " + lng;
+        QMessageBox::information(this, "your location is....", message);
 
-//    }
+    }
 
 }
 

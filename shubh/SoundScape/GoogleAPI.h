@@ -7,7 +7,7 @@
 #ifndef REQ
 #define REQ
 #include <curl/curl.h>
-#include "QtCore/qstring.h"
+#include <QString>
 
 class GoogleAPI
 {

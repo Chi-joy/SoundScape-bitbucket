@@ -97,6 +97,8 @@ void SpotifyAPI::setAuthCode(QString v) {
 
 void SpotifyAPI::downloadFinished(QNetworkReply * reply) {
     auto data = reply->readAll();
+    nlohmann::json myjson = nlohmann::json::parse(data);
+    this->playlistVector = createVector(myjson);
 }
 
 void SpotifyAPI::callGetPlaylist() {
@@ -112,6 +114,10 @@ void SpotifyAPI::callGetPlaylist() {
     accessManager->get(m_networkRequest);
 
 //    getPlaylists(this->accessToken.toStdString());
+}
+
+std::vector<Playlist::playlist> SpotifyAPI::getVector() {
+    return this->playlistVector;
 }
 
 

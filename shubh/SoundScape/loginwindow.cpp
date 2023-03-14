@@ -3,6 +3,7 @@
 #include "ui_loginwindow.h"
 #include <QDesktopServices>
 #include <QMessageBox>
+#include <QStringListModel>
 
     SpotifyAPI * spotifyAPI;
 LoginWindow::LoginWindow(QWidget *parent)
@@ -14,6 +15,8 @@ LoginWindow::LoginWindow(QWidget *parent)
    // ui->groupBox_login->hide();
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
     ui->pushButton_spotify->hide();
+    ui->pushButton_playlists->hide();
+    ui->listView_playlists->hide();
 
 
 
@@ -25,6 +28,7 @@ void LoginWindow::createSpotifyObject() {
     spotifyAPI->authenticate();
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->show();
+
 }
 
 LoginWindow::~LoginWindow()
@@ -46,12 +50,29 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->groupBox_login->hide();
         ui->pushButton_spotify->show();
 
+
     }
 }
 
 
 void LoginWindow::on_pushButton_playlists_clicked()
 {
-    spotifyAPI->callGetPlaylist();
+
+
+    QStringListModel *model = new QStringListModel(this);
+    ui->pushButton_playlists->hide();
+    ui->listView_playlists->show();
+    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+    int size = playlistVector.size();
+    QStringList playlistNames;
+
+    for (int i = 0; i < size; i++) {
+        Playlist::playlist tempPlaylist = playlistVector[i];
+        playlistNames.append(tempPlaylist.getPlaylistName());
+    }
+
+    model->setStringList(playlistNames);
+    ui->listView_playlists->setModel(model);
+
 }
 

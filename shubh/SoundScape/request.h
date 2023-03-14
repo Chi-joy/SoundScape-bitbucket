@@ -11,6 +11,7 @@
 QString initRequest(std::string authCode);
 void setToken(nlohmann::json & myjson);
 void getPlaylists(std::string accessToken);
+std::vector<Playlist::playlist> createVector(nlohmann::json & myjson);
 //std::vector<Playlist::playlist> createVector(nlohmann::json & myjson);
 //std::vector<Game> createVector(nlohmann::json & myjson);
 //void createVector(nlohmann::json myjson);

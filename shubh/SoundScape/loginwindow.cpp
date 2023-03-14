@@ -4,7 +4,7 @@
 #include <QDesktopServices>
 #include <QMessageBox>
 
-
+    SpotifyAPI * spotifyAPI;
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
@@ -20,7 +20,7 @@ LoginWindow::LoginWindow(QWidget *parent)
 }
 
 void LoginWindow::createSpotifyObject() {
-    SpotifyAPI * spotifyAPI;
+
     spotifyAPI = new SpotifyAPI();
     spotifyAPI->authenticate();
     ui->pushButton_spotify->hide();
@@ -52,6 +52,6 @@ void LoginWindow::on_pushButton_login_clicked()
 
 void LoginWindow::on_pushButton_playlists_clicked()
 {
-
+    spotifyAPI->callGetPlaylist();
 }
 

@@ -12,6 +12,7 @@ public:
     explicit SpotifyAPI(QObject *parent = nullptr);
     void authenticate();
     void setUpAuth();
+    void callGetPlaylist();
 
 private:
 

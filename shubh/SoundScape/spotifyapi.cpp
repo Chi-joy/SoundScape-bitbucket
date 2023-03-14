@@ -77,10 +77,6 @@ void SpotifyAPI::setUpAuth() {
         auto authCoded = map.value("code");
         this->authCode = authCoded.toString();
         this->accessToken = initRequest(authCoded.toString().toStdString());
-
-
-
-
     });
 
 
@@ -93,6 +89,9 @@ void SpotifyAPI::setAuthCode(QString v) {
     initRequest(v.toStdString());
 }
 
+void SpotifyAPI::callGetPlaylist() {
+    getPlaylists(this->accessToken.toStdString());
+}
 
 
 void SpotifyAPI::authenticate() {

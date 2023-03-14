@@ -1,0 +1,8 @@
+# ninja log v5
+1	28	1678755514221111800	CMakeFiles/SoundScape8.0.dir/PlaylistMap.cpp.o	48b2fce8315d19f9
+2	29	1678755514221111800	CMakeFiles/SoundScape8.0.dir/Location.cpp.o	49e05bf509cc5a27
+1	2067	1678756089251111800	CMakeFiles/SoundScape8.0.dir/SoundScape8.0.cpp.o	c64117fdce627a89
+2	2088	1678756089271111800	CMakeFiles/SoundScape8.0.dir/HandlePlaylistMap.cpp.o	c76f580736a3a562
+1	3229	1678756090411111800	CMakeFiles/SoundScape8.0.dir/GoogleAPI.cpp.o	4cde899e9988a39a
+1	668	1678755833811111800	CMakeFiles/SoundScape8.0.dir/BackgroundController.cpp.o	8ddbc2f24a700a28
+0	340	1678757115501111800	SoundScape8.0	8a5dc64c4fac0684

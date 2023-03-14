@@ -1,0 +1,3 @@
+/home/namasheep/.vs/SoundScape8.0/build/CMakeFiles/SoundScape8.0.dir
+/home/namasheep/.vs/SoundScape8.0/build/CMakeFiles/edit_cache.dir
+/home/namasheep/.vs/SoundScape8.0/build/CMakeFiles/rebuild_cache.dir

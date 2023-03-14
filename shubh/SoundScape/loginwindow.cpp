@@ -16,7 +16,7 @@ LoginWindow::LoginWindow(QWidget *parent)
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->hide();
-    ui->listView_playlists->hide();
+    ui->groupBox_playlists->hide();
 
 
 
@@ -61,7 +61,7 @@ void LoginWindow::on_pushButton_playlists_clicked()
 
     QStringListModel *model = new QStringListModel(this);
     ui->pushButton_playlists->hide();
-    ui->listView_playlists->show();
+    ui->groupBox_playlists->show();
     std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
     int size = playlistVector.size();
     QStringList playlistNames;

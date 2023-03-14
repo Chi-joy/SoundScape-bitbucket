@@ -1,6 +1,6 @@
 QT       += core gui
 QT += network
-QT += webengine webenginewidgets
+#QT += webengine webenginewidgets
 QT += networkauth
 QT += location
 

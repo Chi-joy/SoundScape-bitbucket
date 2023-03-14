@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">../group20/shubh/SoundScape/main.qml</file>
+        <file alias="marker.png">../group20/shubh/SoundScape/marker.png</file>
+    </qresource>
+</RCC>

@@ -2,6 +2,7 @@
 #define LOGINWINDOW_H
 
 #include <QMainWindow>
+#include <QVariant>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginWindow; }
@@ -22,6 +23,8 @@ private slots:
 
     void on_pushButton_coor_clicked();
 
+signals:
+    void setCenter(double, double);
 private:
     Ui::LoginWindow *ui;
     void createSpotifyObject();

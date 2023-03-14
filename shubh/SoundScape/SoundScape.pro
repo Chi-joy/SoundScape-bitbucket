@@ -2,8 +2,9 @@ QT       += core gui
 QT += network
 QT += webengine webenginewidgets
 QT += networkauth
+QT += location
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++11
@@ -69,5 +70,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    curl/Makefile.am \
+    curl/Makefile.am
+
+RESOURCES += \
+    resource.qrc
+
+OTHER_FILES += \
     main.qml
+    marker.png
+

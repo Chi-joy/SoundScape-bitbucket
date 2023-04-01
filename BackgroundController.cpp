@@ -22,20 +22,26 @@ class BackgroundController{
         Loc.getLocation();
         string GEOLOC = Loc.locationResult();
 
-        //TO NAMASHI: make a location object with GEOLOC or have the google API return, then return it here   
         Location currentLocation;
         currentLocation.latitude = GEOLOG.latitude;
-
+        currentLocation.longitude = GEOLOG.longitude;
         return(currentLocation);
         
     }
 
     //Method to detect a map change and swap the current PlaylistMap
+    //if it detects a map change it updates, if current user is within none of them then exit
     void checkMapChange(Location currentLocation){
         
-       //for every map in PlaylistMaps static object, check location of current from pingLocation against them
-        //if match, then update currentMap to the one that it matches/
-        // work on in phase 2
+        for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){
+            
+            Location playlistLoc = it->getLocation();
+            if ( sqrt((playlistLoc.latitude - currentLocation.latitude)^2 + (playlistLoc.longitude - currentLocation.longitude)^2) <= 3000){
+                currentMap = *it;
+                break;
+            }
+        }
+        currentMap = NULL;
         
     }
 
@@ -47,15 +53,9 @@ int main() {
     std::cout << "Starting program... \n"
 
     while (true) {
-        std::Location location = pingLocation();
         
-        //checkMapChange(location);
+        checkMapChange(pingLocation());
 
-        //TO NAMASHI: PARSE THE LOCATION OBJECT INTO LANG/LONG AND PRINT IT HERE        
-        //location = location.parse(); //< PARSE THIS LOCATION OBJECT INTO LANG/LONG STRING AND PRINT HERE
-        std::cout << "Current location: " <<  << std::endl;
-
-        
         sleep(10); // sleep for 10 seconds
     }
 

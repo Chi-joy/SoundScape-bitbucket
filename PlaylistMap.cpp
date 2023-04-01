@@ -6,6 +6,11 @@ class Location {
   private:
     double latitude;
     double longitude;
+
+  public:
+    Location(double lat, double lng) : latitude(lat), longitude(lng) {}
+    double getLatitude() const { return latitude; }
+    double getLongitude() const { return longitude; }
 };
 
 class Playlist {
@@ -44,5 +49,3 @@ class PlaylistMap{
         Playlist playlist;
 
 };
-
-// std::set<PlaylistMap> PlaylistMap::PlaylistMaps;

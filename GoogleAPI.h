@@ -16,6 +16,7 @@ class GoogleAPI
 private:
 	std::string url;
     std::string locationItems;
+    std::Location location;
     //Location yourLocation;
     static size_t my_write(void* buffer, size_t size, size_t nmemb, void* param)
     {

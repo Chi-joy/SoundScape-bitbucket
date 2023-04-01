@@ -54,15 +54,12 @@ bool GoogleAPI::getLocation() {
         json data = json::parse(locationItems);
         const auto& lat = data["location"]["lat"];
         const auto& lng = data["location"]["lng"];
-        //yourLocation = new Location(lat,lng);
-        
-        //cout << lat << ":"<< lng << endl;
+        location = Location(lat,lng);
     }
     return(worked);
-        
-
 }
+
 //get result of request
 string GoogleAPI::locationResult() {
-    return locationItems;
+    return location;
 }

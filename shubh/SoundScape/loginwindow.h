@@ -24,9 +24,12 @@ private slots:
     void on_pushButton_coor_clicked();
 
 signals:
-    void setCenter(double, double);
+    void saveLocationClicked();
+    void panToLocation();
+
 private:
     Ui::LoginWindow *ui;
     void createSpotifyObject();
+    void getLocations();
 };
 #endif // LOGINWINDOW_H

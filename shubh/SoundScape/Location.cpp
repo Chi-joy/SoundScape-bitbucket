@@ -1,18 +1,18 @@
-#include "Location.h";
+#include "Location.h"
 
-Location::Location(double lt, double ln):latitude(lt),longitude(ln) {
+location::Location(double lt, double ln):latitude(lt),longitude(ln) {
 	latitude = lt;
 	longitude = ln;
 }
-double Location::getLat() {
+double location::getLat() {
 	return latitude;
 }
-double Location::getLng() {
+double location::getLng() {
 	return longitude;
 }
-void Location::setLat(double lt) {
+void location::setLat(double lt) {
 	latitude = lt;
 }
-void Location::setLng(double lg) {
+void location::setLng(double lg) {
 	longitude = lg;
 }

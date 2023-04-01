@@ -1,5 +1,6 @@
 #pragma once
 #include "Location.h"
+#include <QQmlEngine>
 
 #include "playlist.h"
 class PlaylistMap {
@@ -22,7 +23,6 @@ public:
     Playlist::playlist getPlaylist();
 
     Location getLocation();
-
 
 
 

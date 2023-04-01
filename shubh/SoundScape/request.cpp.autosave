@@ -159,6 +159,7 @@ QString initRequest(std::string authCode)
     }
     else
     {
+        nlohmann::json myjson = nlo
 
 	    //parse returned json
         //nlohmann::json myjson = nlohmann::json::parse(chunk.memory);

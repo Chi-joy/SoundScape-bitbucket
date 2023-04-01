@@ -1,4 +1,5 @@
 #include "loginwindow.h"
+#include "QtQml/qqmlcontext.h"
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
@@ -7,6 +8,7 @@
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QQuickItem>
+#include <QGeoCoordinate>
 
     SpotifyAPI * spotifyAPI;
 LoginWindow::LoginWindow(QWidget *parent)
@@ -21,7 +23,15 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->groupBox_playlists->hide();
 
     ui->quickWidget_map->hide();
+    ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+
+    //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(43.009953,-81.273613)));
+
+
+    //connect(this, &LoginWindow::saveLocationClicked, ui->qmlWidget, &QQuickWidget::requestUpdate);
+    //import playlist playlistmap.cpp, then store the coordinates in a Location object
+    //
     auto obj = ui->quickWidget_map->rootObject();
    // connect(this, SIGNAL(setCenter(double,double)), obj, SLOT(setCenter(double,double)));
 
@@ -67,6 +77,8 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->pushButton_spotify->show();
         ui->groupBox_pushButtons->show();
         ui->quickWidget_map->show();
+        ui->groupBox_playlistMaps->show();
+        ui->groupBox_playlists->show();
 
 
     }
@@ -104,9 +116,26 @@ void LoginWindow::on_pushButton_coor_clicked()
         QString lng = QString::number(googleAPI.getLocationLng());
         QString message = "Latitude: " + lat + " Longitude: " + lng;
         QMessageBox::information(this, "your location is....", message);
-        emit setCenter(googleAPI.getLocationLat(), googleAPI.getLocationLng());
+
+        double latidudeD = googleAPI.getLocationLat();
+        double longitudeD = googleAPI.getLocationLng();
+        //emit setCenter(googleAPI.getLocationLat(), googleAPI.getLocationLng());
+        //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(latidudeD, longitudeD)));
+
+//        // Get the 'map' QML item from the QQuickWidget
+//        QQuickItem *map = ui->quickWidget_map->rootObject()->findChild<QQuickItem*>("map");
+
+//        // Create a new camera object with the desired location and zoom level
+//        QGeoCoordinate newCenterCoordinate(latidudeD, longitudeD);
+//        QGeoViewCamera newCamera(newCenterCoordinate, 12);
+
+//        // Animate the map to the new camera position and zoom level
+//        QVariant animation = map->property("activeMapItem").value<QObject*>()->createAnimation(newCamera);
+//        animation.value<QAbstractAnimation*>()->start();
 
     }
+
+
 
 }
 

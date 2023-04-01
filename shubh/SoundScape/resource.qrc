@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>loginMap.qml</file>
+        <file>newLoc.qml</file>
         <file>marker.png</file>
+        <file>marker-noshadow.png</file>
     </qresource>
 </RCC>

@@ -33,6 +33,9 @@ vector<PlaylistMap> Metadata::buildData(string fname){
             hasP=false;
         }
         playlist p = playlist(fields.at(2),fields.at(3),fields.at(4),hasP);
+
+
+        //FOR NAM:::::CAN YOU CHANGE IT SO THERES A 'NAME' VALUE SAVED TOO, I CHANGED THE CONSTRUCTOR ALREADY
         location::Location loc = location::Location(stod(fields.at(0).toStdString()),(stod(fields.at(1).toStdString())));
         PlaylistMap pmap = PlaylistMap(loc,p);
         objects.push_back(pmap);

@@ -18,6 +18,8 @@ public:
 private slots:
     void on_pushButton_savePlaylistMap_clicked();
 
+    void on_pushButton_addLocation_clicked();
+
 private:
     Ui::selectPlaylistWidget *ui;
 };

@@ -1,5 +1,4 @@
 
-#include "QtCore/qstring.h"
 #include "Song.h"
 
 #ifndef PLAYLIST_H   // To make sure you don't declare the function more than once by including the header multiple times.

@@ -1,6 +1,4 @@
 
-#include "PlaylistMap.h"
-#include "GoogleAPI.h"
 
 class HandlePlaylistMap{
 public:

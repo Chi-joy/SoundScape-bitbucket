@@ -2,13 +2,11 @@
 #define METADATA_H
 #include <string.h>
 #include "PlaylistMap.h"
-#include "Location.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
-#include "QtCore/qstring.h"
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>

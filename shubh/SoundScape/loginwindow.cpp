@@ -3,6 +3,7 @@
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
 #include "savelocation.h"
+#include "selectplaylistwidget.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -11,7 +12,8 @@
 #include <QGeoCoordinate>
 
     SpotifyAPI * spotifyAPI;
-    saveLocation * s;
+    saveLocation * saveLocationN;
+    selectPlaylistWidget * playlistMap;
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,8 +31,10 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    s = new saveLocation(this);
-    connect(ui->pushButton_createLocation, &QPushButton::clicked, s, &saveLocation::exec);
+    saveLocationN = new saveLocation(this);
+
+    connect(ui->pushButton_createLocation, &QPushButton::clicked, saveLocationN, &saveLocation::exec);
+    //connect(ui->pushButton_createPMap, &QPushButton::clicked, playlistMap, &selectPlaylistWidget::exec);
 
     //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(43.009953,-81.273613)));
 
@@ -152,10 +156,38 @@ void LoginWindow::on_pushButton_coor_clicked()
 
 void LoginWindow::on_pushButton_createLocation_clicked()
 {
+    //dies if the methods not here idk why
+    //leave empty
+
+}
 
 
+void LoginWindow::on_pushButton_editLocation_clicked()
+{
+    QItemSelectionModel *selectionModel = ui->listView_locations->selectionModel();
 
-    //s.show();
+    //dies if no locations
+    if (!selectionModel->hasSelection()) {
+        QMessageBox::information(this, "Error!", "Please select a location to delete from list");
+    } else {
+        int result = QMessageBox::question(this, "Confirmation", "Are you sure you wish to delete this location?");
 
+        if (result) {
+            //delete location method called from nams code
+
+        }
+
+        else {
+            return;
+        }
+    }
+}
+
+
+void LoginWindow::on_pushButton_createPMap_clicked()
+{
+    playlistMap = new selectPlaylistWidget(this);
+
+    playlistMap->show();
 }
 

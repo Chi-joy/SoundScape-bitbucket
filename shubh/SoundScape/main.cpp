@@ -1,4 +1,3 @@
-#include "PlaylistMap.h"
 #include "loginwindow.h"
 
 #include <QApplication>

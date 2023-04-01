@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QListView" name="listView_locations">
    <property name="geometry">
     <rect>
@@ -64,8 +67,8 @@ border-radius: 10px;</string>
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>231</width>
-     <height>10</height>
+     <width>191</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -124,6 +127,24 @@ border-radius: 10px;</string>
     <string>Create Playlist Map!</string>
    </property>
   </widget>
+  <widget class="QGraphicsView" name="graphicsView">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>431</width>
+     <height>351</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>graphicsView</zorder>
+  <zorder>listView_locations</zorder>
+  <zorder>label</zorder>
+  <zorder>pushButton_cancel</zorder>
+  <zorder>label_2</zorder>
+  <zorder>listView_playlists</zorder>
+  <zorder>pushButton_addLocation</zorder>
+  <zorder>pushButton_savePlaylistMap</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -20,7 +20,6 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 SOURCES += \
     BackgroundController.cpp \
     GoogleAPI.cpp \
-    HandlePlaylistMap.cpp \
     Location.cpp \
     MetaData.cpp \
     PlaylistMap.cpp \

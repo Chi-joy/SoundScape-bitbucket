@@ -8,8 +8,15 @@ Location::Location() {
 }
 
 Location::Location(double lt, double ln) {
-    latitude = lt;
-    longitude = ln;
+
+    this->latitude = lt;
+    this->longitude = ln;
+}
+
+Location::Location(QString name, double lt, double ln) {
+    this->name = name;
+    this->latitude = lt;
+    this->longitude = ln;
 }
 double Location::getLat() {
     return latitude;

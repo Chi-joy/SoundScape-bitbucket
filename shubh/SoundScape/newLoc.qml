@@ -11,7 +11,7 @@ import QtLocation 5.6
 
 Item {
 
-    signal markerPositionChanged(QtPositioning.coordinate position)
+    signal markerPositionChanged(double lat, double lng)
 
 //    property double oldLat: 43.009953
 //    property double oldLng: -81.273613
@@ -67,13 +67,11 @@ Item {
             onPressed: {
                 marker.visible = true
                 marker.coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+                markerPositionChanged(marker.coordinate.latitude,marker.coordinate.longitude)
+
             }
 
             //emit signal every time marker is pressed that is then caught by savelocation.cpp
-
-            parent.markerPositionChanged(marker.coordinate);
-
-
 
 
         }

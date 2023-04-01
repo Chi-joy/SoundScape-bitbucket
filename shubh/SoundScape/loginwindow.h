@@ -25,6 +25,10 @@ private slots:
 
     void on_pushButton_createLocation_clicked();
 
+    void on_pushButton_editLocation_clicked();
+
+    void on_pushButton_createPMap_clicked();
+
 signals:
     void saveLocationClicked();
     void panToLocation();

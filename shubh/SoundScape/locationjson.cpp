@@ -1,18 +1,18 @@
-#include "locationjson.h"
-#include "QtCore/qfile.h"
-#include "QtCore/qjsondocument.h"
-#include "QtCore/qjsonobject.h"
-#include "json.hpp"
+//#include "locationjson.h"
+//#include "QtCore/qfile.h"
+//#include "QtCore/qjsondocument.h"
+//#include "QtCore/qjsonobject.h"
+//#include "json.hpp"
 
-locationJson::locationJson()
-{
+//locationJson::locationJson()
+//{
 
-    QFile file("locations.json");
+//    QFile file("locations.json");
 
-       // Read the contents of the JSON file
-    QByteArray data = file.readAll();
-    nlohmann::json myjson = nlohmann::json::parse(data);
-    auto & locations = myjson["locations"];
+//       // Read the contents of the JSON file
+//    QByteArray data = file.readAll();
+//    nlohmann::json myjson = nlohmann::json::parse(data);
+//    auto & locations = myjson["locations"];
 
 
-}
+//}

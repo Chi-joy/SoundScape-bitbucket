@@ -33,7 +33,7 @@ vector<PlaylistMap> Metadata::buildData(string fname){
             hasP=false;
         }
         playlist p = playlist(fields.at(2),fields.at(3),fields.at(4),hasP);
-        Location loc = Location(stod(fields.at(0).toStdString()),(stod(fields.at(1).toStdString())));
+        location::Location loc = location::Location(stod(fields.at(0).toStdString()),(stod(fields.at(1).toStdString())));
         PlaylistMap pmap = PlaylistMap(loc,p);
         objects.push_back(pmap);
     }

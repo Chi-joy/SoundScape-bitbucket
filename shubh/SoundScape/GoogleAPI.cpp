@@ -69,11 +69,11 @@ bool GoogleAPI::getLocation() {
 //get result of request
 double GoogleAPI::getLocationLat() {
     return lat;
-    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the 
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the
     //method instance in the header file too
 }
 double GoogleAPI::getLocationLng() {
     return lng;
-    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the 
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the
     //method instance in the header file too
 }

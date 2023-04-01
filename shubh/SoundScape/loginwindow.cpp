@@ -1,8 +1,8 @@
 #include "loginwindow.h"
-#include "QtQml/qqmlcontext.h"
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
+#include "savelocation.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -11,11 +11,14 @@
 #include <QGeoCoordinate>
 
     SpotifyAPI * spotifyAPI;
+    saveLocation * s;
+
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    getLocations();
 
    // ui->groupBox_login->hide();
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
@@ -26,17 +29,24 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
+    s = new saveLocation(this);
+    connect(ui->pushButton_createLocation, &QPushButton::clicked, s, &saveLocation::exec);
+
     //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(43.009953,-81.273613)));
 
 
     //connect(this, &LoginWindow::saveLocationClicked, ui->qmlWidget, &QQuickWidget::requestUpdate);
     //import playlist playlistmap.cpp, then store the coordinates in a Location object
-    //
-    auto obj = ui->quickWidget_map->rootObject();
+//    ///*
+//    auto obj = ui->quickWidget_map->rootObject();*/
    // connect(this, SIGNAL(setCenter(double,double)), obj, SLOT(setCenter(double,double)));
 
 
 
+
+}
+
+void LoginWindow::getLocations() {
 
 }
 
@@ -50,7 +60,7 @@ void LoginWindow::createSpotifyObject() {
     QMessageBox::information(this, "Connecting to Spotify", "Connecting to Spotify......Please wait for your browser redirect.");
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->show();
-    ui->pushButton_coor->show();
+    ui->pushButton_createLocation->show();
     ui->quickWidget_map->show();
     ui->listView_playlists->show();
 
@@ -136,6 +146,16 @@ void LoginWindow::on_pushButton_coor_clicked()
     }
 
 
+
+}
+
+
+void LoginWindow::on_pushButton_createLocation_clicked()
+{
+
+
+
+    //s.show();
 
 }
 

@@ -23,6 +23,8 @@ private slots:
 
     void on_pushButton_coor_clicked();
 
+    void on_pushButton_createLocation_clicked();
+
 signals:
     void saveLocationClicked();
     void panToLocation();

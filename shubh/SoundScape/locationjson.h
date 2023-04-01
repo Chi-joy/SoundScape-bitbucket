@@ -1,7 +1,7 @@
 #ifndef LOCATIONJSON_H
 #define LOCATIONJSON_H
 #include "Location.h"
-#include "QtCore/qstring.h"
+#include <QString>
 #include <vector>
 
 

@@ -1,0 +1,10 @@
+{
+    "locations" : [
+        {
+            "name": "testLocation",
+            "latitude": 43.009953,
+            "longitude": -81.273613
+        }
+    ]
+  
+}

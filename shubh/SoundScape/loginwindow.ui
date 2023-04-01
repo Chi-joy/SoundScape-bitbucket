@@ -270,7 +270,7 @@ border-radius: 10px;
       <string>Get My Playlists</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_coor">
+    <widget class="QPushButton" name="pushButton_createLocation">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -308,7 +308,7 @@ border-radius: 10px;</string>
       <string>Connect to Spotify</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_spotify_2">
+    <widget class="QPushButton" name="pushButton_editPMaps">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -327,7 +327,7 @@ border-radius: 10px;</string>
       <string>Edit Playlist Maps</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_spotify_3">
+    <widget class="QPushButton" name="pushButton_createPMap">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -352,33 +352,19 @@ border-radius: 10px;</string>
        <x>10</x>
        <y>230</y>
        <width>161</width>
-       <height>181</height>
+       <height>191</height>
       </rect>
      </property>
      <property name="title">
       <string>My Playlist Maps:</string>
      </property>
-     <widget class="QListView" name="listView_locations_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>20</y>
-        <width>161</width>
-        <height>161</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: white;
-color: black;</string>
-      </property>
-     </widget>
      <widget class="QListView" name="listView_playlistMaps">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
         <width>161</width>
-        <height>181</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -387,7 +373,7 @@ color: black;</string>
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="pushButton_coor_2">
+    <widget class="QPushButton" name="pushButton_editLocation">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -432,20 +418,6 @@ border-radius: 10px;</string>
     <property name="title">
      <string>My locations:</string>
     </property>
-    <widget class="QListView" name="listView_playlists_3">
-     <property name="geometry">
-      <rect>
-       <x>1</x>
-       <y>20</y>
-       <width>171</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: white;
-color: black;</string>
-     </property>
-    </widget>
     <widget class="QListView" name="listView_locations">
      <property name="geometry">
       <rect>

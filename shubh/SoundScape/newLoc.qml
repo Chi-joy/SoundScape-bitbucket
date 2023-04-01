@@ -11,15 +11,16 @@ import QtLocation 5.6
 
 Item {
 
+    signal markerPositionChanged(QtPositioning.coordinate position)
 
-    property double oldLat: 43.009953
-    property double oldLng: -81.273613
-    PositionSource {
-        active: true
-        onPositionChanged: {
-            console.log(position.coordinate);
-        }
-    }
+//    property double oldLat: 43.009953
+//    property double oldLng: -81.273613
+//    PositionSource {
+//        active: true
+//        onPositionChanged: {
+//            console.log(position.coordinate);
+//        }
+//    }
 
     Plugin {
         id: mapPlugin
@@ -35,41 +36,47 @@ Item {
         zoomLevel: 12
 
 
-    function setCenter(lat,lng) {
-        //map.pan(oldLat - lat, oldLng - lng)
+//        function setCenter(lat,lng) {
+//            //map.pan(oldLat - lat, oldLng - lng)
 
-        map.toCoordinate(Qt.point(lat,lng));
-        oldLat = lat
-        oldLng = lng
-    }
+//            map.toCoordinate(Qt.point(lat,lng));
+//            oldLat = lat
+//            oldLng = lng
+//        }
 
-    MapQuickItem {
+        MapQuickItem {
 
-        //find out how to change marker size
-        id:marker
-        visible: false
-        sourceItem: Image{
-            id: image
-            source: "marker.png"
+            //find out how to change marker size
+            id:marker
+            visible: false
+            sourceItem: Image{
+                id: image
+                source: "marker.png"
 
-        }
-        coordinate: map.center
+            }
+            coordinate: map.center
 
-        //change to the end point of marker
-        anchorPoint.x: 139
-        anchorPoint.y: 137
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        propagateComposedEvents: true
-        onPressed: {
-            marker.visible = true
-            marker.coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+            //change to the end point of marker
+            anchorPoint.x: 139
+            anchorPoint.y: 137
         }
 
+        MouseArea {
+            anchors.fill: parent
+            propagateComposedEvents: true
+            onPressed: {
+                marker.visible = true
+                marker.coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+            }
 
-    }
+            //emit signal every time marker is pressed that is then caught by savelocation.cpp
+
+            parent.markerPositionChanged(marker.coordinate);
+
+
+
+
+        }
     }
 
 

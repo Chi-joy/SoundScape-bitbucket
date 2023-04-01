@@ -1,18 +1,25 @@
 #include "Location.h"
+#include <cmath>
 
-location::Location(double lt, double ln):latitude(lt),longitude(ln) {
-	latitude = lt;
-	longitude = ln;
+using namespace location;
+
+Location::Location() {
+    //default
 }
-double location::getLat() {
-	return latitude;
+
+Location::Location(double lt, double ln) {
+    latitude = lt;
+    longitude = ln;
 }
-double location::getLng() {
-	return longitude;
+double Location::getLat() {
+    return latitude;
 }
-void location::setLat(double lt) {
-	latitude = lt;
+double Location::getLng() {
+    return longitude;
 }
-void location::setLng(double lg) {
-	longitude = lg;
+void Location::setLat(double lt) {
+    latitude = lt;
+}
+void Location::setLng(double lg) {
+    longitude = lg;
 }

@@ -13,10 +13,12 @@ class saveLocation : public QDialog
 
 public:
     explicit saveLocation(QWidget *parent = nullptr);
+    void setCoordinates(double latitude, double longitude);
     ~saveLocation();
 
 private slots:
     void on_buttonBox_accepted();
+
 
 private:
     Ui::saveLocation *ui;

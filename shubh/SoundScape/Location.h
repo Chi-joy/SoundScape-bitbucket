@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOCATION_H
+#define LOCATION_H
 namespace location {
 
 
@@ -7,6 +8,7 @@ namespace location {
             double latitude;
             double longitude;
     public:
+        Location();
         Location(double lt, double ln);
         double getLat();
         double getLng();
@@ -17,3 +19,5 @@ namespace location {
         }
     };
 }
+
+#endif

@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -17,6 +18,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
+    //qmlRegisterType<PlaylistMap>("PlaylistMapClass", 1, 0, "PlaylistMap");
 
 
     LoginWindow w;

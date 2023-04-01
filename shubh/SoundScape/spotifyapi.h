@@ -5,6 +5,7 @@
 #include <QObject>
 #include "request.h"
 
+
 class SpotifyAPI : public QObject
 {
     Q_OBJECT
@@ -14,6 +15,7 @@ public:
     void setUpAuth();
     void callGetPlaylist();
     void downloadFinished(QNetworkReply * reply);
+    void playSong(Playlist::playlist *);
     std::vector<Playlist::playlist> getVector();
 
 private:

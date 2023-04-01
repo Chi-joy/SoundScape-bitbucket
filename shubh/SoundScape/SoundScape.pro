@@ -1,6 +1,6 @@
 QT       += core gui
 QT += network
-#QT += webengine webenginewidgets
+QT += webengine webenginewidgets
 QT += networkauth
 QT += location
 
@@ -18,23 +18,30 @@ LIBS += -lcurl
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    BackgroundController.cpp \
     GoogleAPI.cpp \
-    HandlePlaylistMap.cpp \
     Location.cpp \
+    MetaData.cpp \
     PlaylistMap.cpp \
     Song.cpp \
+    createplaylistmap.cpp \
     googleDelegate.cpp \
+    locationjson.cpp \
     main.cpp \
     loginwindow.cpp \
     playlist.cpp \
     request.cpp \
+    savelocation.cpp \
+    selectplaylistwidget.cpp \
     spotifyapi.cpp
 
 HEADERS += \
     GoogleAPI.h \
     Location.h \
+    MetaData.h \
     PlaylistMap.h \
     Song.h \
+    createplaylistmap.h \
     curl/curl.h \
     curl/curlver.h \
     curl/easy.h \
@@ -48,15 +55,21 @@ HEADERS += \
     curl/urlapi.h \
     curl/websockets.h \
     json.hpp \
+    locationjson.h \
     loginwindow.h \
     playlist.h \
     request.h \
+    savelocation.h \
+    selectplaylistwidget.h \
     spotifyapi.h
 
 
 
 FORMS += \
+    createplaylistmap.ui \
     loginwindow.ui \
+    savelocation.ui \
+    selectplaylistwidget.ui
 
 TRANSLATIONS += \
     SoundScape_en_CA.ts
@@ -70,12 +83,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    curl/Makefile.am
+    curl/Makefile.am \
+    locations.json \
+    loginMap.qml \
+    main.qml \
+    marker-noshadow.png \
+    marker.png \
+    newLoc.qml
 
 RESOURCES += \
     resource.qrc
 
 OTHER_FILES += \
-    main.qml
     marker.png
 

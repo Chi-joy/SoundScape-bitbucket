@@ -389,7 +389,7 @@ border-style: outset;
 border-radius: 10px;</string>
      </property>
      <property name="text">
-      <string>Delete Location Zone</string>
+      <string>Edit Location Zones</string>
      </property>
     </widget>
    </widget>

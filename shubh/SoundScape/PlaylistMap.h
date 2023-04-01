@@ -1,15 +1,16 @@
 #pragma once
 #include "Location.h"
+#include <QQmlEngine>
 
 #include "playlist.h"
 class PlaylistMap {
 private:
-    Location location;
+    location::Location location;
     Playlist::playlist playlist;
 public:
     //static std::set<PlaylistMap> PlaylistMaps;
 
-    PlaylistMap(Location loc, Playlist::playlist pl) :location(loc), playlist(pl) {
+    PlaylistMap(location::Location loc, Playlist::playlist pl) :location(loc), playlist(pl) {
 
         location = loc;
         playlist = pl;
@@ -17,12 +18,11 @@ public:
 
     void updatePlaylist(Playlist::playlist updatedPlaylist);
 
-    void updateLocation(Location updatedLocation);
+    void updateLocation(location::Location updatedLocation);
 
     Playlist::playlist getPlaylist();
 
-    Location getLocation();
-
+    location::Location getLocation();
 
 
 

@@ -2,18 +2,25 @@
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
+#include "savelocation.h"
+#include "selectplaylistwidget.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QQuickItem>
+#include <QGeoCoordinate>
 
     SpotifyAPI * spotifyAPI;
+    saveLocation * saveLocationN;
+    selectPlaylistWidget * playlistMap;
+
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    getLocations();
 
    // ui->groupBox_login->hide();
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
@@ -21,12 +28,29 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->groupBox_playlists->hide();
 
     ui->quickWidget_map->hide();
+    ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
-    auto obj = ui->quickWidget_map->rootObject();
+
+    saveLocationN = new saveLocation(this);
+
+    connect(ui->pushButton_createLocation, &QPushButton::clicked, saveLocationN, &saveLocation::exec);
+    //connect(ui->pushButton_createPMap, &QPushButton::clicked, playlistMap, &selectPlaylistWidget::exec);
+
+    //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(43.009953,-81.273613)));
+
+
+    //connect(this, &LoginWindow::saveLocationClicked, ui->qmlWidget, &QQuickWidget::requestUpdate);
+    //import playlist playlistmap.cpp, then store the coordinates in a Location object
+//    ///*
+//    auto obj = ui->quickWidget_map->rootObject();*/
    // connect(this, SIGNAL(setCenter(double,double)), obj, SLOT(setCenter(double,double)));
 
 
 
+
+}
+
+void LoginWindow::getLocations() {
 
 }
 
@@ -40,7 +64,7 @@ void LoginWindow::createSpotifyObject() {
     QMessageBox::information(this, "Connecting to Spotify", "Connecting to Spotify......Please wait for your browser redirect.");
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->show();
-    ui->pushButton_coor->show();
+    ui->pushButton_createLocation->show();
     ui->quickWidget_map->show();
     ui->listView_playlists->show();
 
@@ -67,6 +91,8 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->pushButton_spotify->show();
         ui->groupBox_pushButtons->show();
         ui->quickWidget_map->show();
+        ui->groupBox_playlistMaps->show();
+        ui->groupBox_playlists->show();
 
 
     }
@@ -104,9 +130,64 @@ void LoginWindow::on_pushButton_coor_clicked()
         QString lng = QString::number(googleAPI.getLocationLng());
         QString message = "Latitude: " + lat + " Longitude: " + lng;
         QMessageBox::information(this, "your location is....", message);
-        emit setCenter(googleAPI.getLocationLat(), googleAPI.getLocationLng());
+
+        double latidudeD = googleAPI.getLocationLat();
+        double longitudeD = googleAPI.getLocationLng();
+        //emit setCenter(googleAPI.getLocationLat(), googleAPI.getLocationLng());
+        //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(latidudeD, longitudeD)));
+
+//        // Get the 'map' QML item from the QQuickWidget
+//        QQuickItem *map = ui->quickWidget_map->rootObject()->findChild<QQuickItem*>("map");
+
+//        // Create a new camera object with the desired location and zoom level
+//        QGeoCoordinate newCenterCoordinate(latidudeD, longitudeD);
+//        QGeoViewCamera newCamera(newCenterCoordinate, 12);
+
+//        // Animate the map to the new camera position and zoom level
+//        QVariant animation = map->property("activeMapItem").value<QObject*>()->createAnimation(newCamera);
+//        animation.value<QAbstractAnimation*>()->start();
 
     }
 
+
+
+}
+
+
+void LoginWindow::on_pushButton_createLocation_clicked()
+{
+    //dies if the methods not here idk why
+    //leave empty
+
+}
+
+
+void LoginWindow::on_pushButton_editLocation_clicked()
+{
+    QItemSelectionModel *selectionModel = ui->listView_locations->selectionModel();
+
+    //dies if no locations
+    if (!selectionModel->hasSelection()) {
+        QMessageBox::information(this, "Error!", "Please select a location to delete from list");
+    } else {
+        int result = QMessageBox::question(this, "Confirmation", "Are you sure you wish to delete this location?");
+
+        if (result) {
+            //delete location method called from nams code
+
+        }
+
+        else {
+            return;
+        }
+    }
+}
+
+
+void LoginWindow::on_pushButton_createPMap_clicked()
+{
+    playlistMap = new selectPlaylistWidget(this);
+
+    playlistMap->show();
 }
 

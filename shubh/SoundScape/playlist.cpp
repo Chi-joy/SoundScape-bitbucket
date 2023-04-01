@@ -60,7 +60,7 @@ commenting out the song methods since they need the api delegate set up
 // somearray playlist::getSongURIs() {
 //     //iterate through song vector
 //     //save .getSongURI() response in array
-//     //return array 
+//     //return array
 
 // }
 

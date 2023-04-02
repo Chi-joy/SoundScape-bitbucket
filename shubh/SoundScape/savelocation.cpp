@@ -2,16 +2,23 @@
 #include "QtQuick/qquickitem.h"
 #include "ui_savelocation.h"
 #include "Location.h"
+#include "MetaData.h"
 #include <QMessageBox>
 
 location::Location newLocation;
+QWidget * parentWindow;
 
 saveLocation::saveLocation(QWidget *parent) : QDialog(parent)
     , ui(new Ui::saveLocation)
 {
+
     ui->setupUi(this);
 
+
+    parentWindow = parent;
+
     ui->quickWidget_map_saveLocation->setSource(QUrl(QStringLiteral("qrc:/newLoc.qml")));
+
     QQuickItem::connect(ui->quickWidget_map_saveLocation->rootObject(), SIGNAL(markerPositionChanged(double,double)),
                      this, SLOT(handleMySignal(double,double)));
 
@@ -76,6 +83,15 @@ void saveLocation::on_pushButton_saveNewLocation_clicked()
 
     ui->quickWidget_map_saveLocation->rootObject();
     location::Location newLoc(name, this->markerlatitude, this->markerlongitude);
+
+    Metadata m = Metadata();
+    std::vector<location::Location> l = m.buildDataLocation("locations.csv");
+
+    l.push_back(newLoc);
+    m.writeDataLocation(l, "locations.csv");
+
+
+    accept();
 
     //push to nam's code to save location
 

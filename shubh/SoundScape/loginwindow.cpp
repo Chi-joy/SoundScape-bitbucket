@@ -5,6 +5,7 @@
 #include "GoogleAPI.h"
 #include "savelocation.h"
 #include "selectplaylistwidget.h"
+#include "ui_selectplaylistwidget.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -12,9 +13,9 @@
 #include <QQuickItem>
 #include <QGeoCoordinate>
 
-    SpotifyAPI * spotifyAPI;
-    saveLocation * saveLocationN;
-    selectPlaylistWidget * playlistMap;
+SpotifyAPI * spotifyAPI;
+saveLocation * saveLocationN;
+selectPlaylistWidget * playlistMapWindow;
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -234,8 +235,22 @@ void LoginWindow::on_pushButton_editLocation_clicked()
 
 void LoginWindow::on_pushButton_createPMap_clicked()
 {
-    playlistMap = new selectPlaylistWidget(this);
+    playlistMapWindow = new selectPlaylistWidget(this);
 
-    playlistMap->show();
+    QStringListModel *model = new QStringListModel(this);
+    ui->groupBox_playlists->show();
+    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+    int size = playlistVector.size();
+    QStringList playlistNames;
+
+    for (int i = 0; i < size; i++) {
+        Playlist::playlist tempPlaylist = playlistVector[i];
+        playlistNames.append(tempPlaylist.getPlaylistName());
+    }
+
+    model->setStringList(playlistNames);
+
+    playlistMapWindow->ui->listView_playlists->setModel(model);
+    playlistMapWindow->show();
 }
 

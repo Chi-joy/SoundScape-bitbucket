@@ -14,14 +14,17 @@ class selectPlaylistWidget : public QWidget
 public:
     explicit selectPlaylistWidget(QWidget *parent = nullptr);
     ~selectPlaylistWidget();
+    Ui::selectPlaylistWidget *ui;
 
 private slots:
     void on_pushButton_savePlaylistMap_clicked();
 
     void on_pushButton_addLocation_clicked();
 
+    void on_pushButton_cancel_clicked();
+
 private:
-    Ui::selectPlaylistWidget *ui;
+
 };
 
 #endif // SELECTPLAYLISTWIDGET_H

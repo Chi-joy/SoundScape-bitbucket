@@ -222,13 +222,29 @@ void LoginWindow::on_pushButton_editLocation_clicked()
         int result = QMessageBox::question(this, "Confirmation", "Are you sure you wish to delete this location?");
 
         if (result) {
+
+            Metadata m = Metadata();
+            std::vector<location::Location> locationVector = m.buildDataLocation("locations.csv");
+            QModelIndex index = ui->listView_locations->currentIndex();
+            QString selectedText = index.data(Qt::DisplayRole).toString();
+
+            int size = locationVector.size();
+
+            for (int i = 0; i < size; i++) {
+                if (locationVector.at(i).getName() == selectedText) {
+                    locationVector.erase(locationVector.begin() + i);
+                    m.writeDataLocation(locationVector, "locations.csv");
+                }
+            }
+
             //delete location method called from nams code
 
+        } else {
+
         }
 
-        else {
-            return;
-        }
+        setLists();
+
     }
 }
 
@@ -252,5 +268,11 @@ void LoginWindow::on_pushButton_createPMap_clicked()
 
     playlistMapWindow->ui->listView_playlists->setModel(model);
     playlistMapWindow->show();
+}
+
+
+void LoginWindow::on_pushButton_refreshLists_clicked()
+{
+    setLists();
 }
 

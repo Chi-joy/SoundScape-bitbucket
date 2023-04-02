@@ -7,6 +7,8 @@
 #include <unistd.h> //LINUX ONLY IF YOU ARE ON WINDOWS USE <windows.h> and change sleep to 10000
 #include "PlaylistMap.cpp"
 
+
+//class that handles the background effects of playlist map, such as passive location updates and area changes
 class BackgroundController{
     
     public:
@@ -33,10 +35,9 @@ class BackgroundController{
     //if it detects a map change it updates, if current user is within none of them then exit
     void checkMapChange(Location currentLocation){
         
-        for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){
-            
+        for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){   
             Location playlistLoc = it->getLocation();
-            if ( sqrt((playlistLoc.latitude - currentLocation.latitude)^2 + (playlistLoc.longitude - currentLocation.longitude)^2) <= 3000){
+            if ( sqrt((playlistLoc.latitude - currentLocation.latitude)^2 + (playlistLoc.longitude - currentLocation.longitude)^2) <= 3400){
                 currentMap = *it;
                 break;
             }

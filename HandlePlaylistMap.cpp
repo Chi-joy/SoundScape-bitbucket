@@ -15,7 +15,7 @@ public:
         for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){
             Location playlistLoc = it->getLocation();
 
-            if ( sqrt((playlistLoc.latitude - targetLocation.latitude)^2 + (playlistLoc.longitude - targetLocation.longitude)^2) <= 6000){
+            if ( sqrt((playlistLoc.latitude - targetLocation.latitude)^2 + (playlistLoc.longitude - targetLocation.longitude)^2) <= 6800){
                 //if an overlap exists return false to indicate failure
                 return false;
             }
@@ -26,11 +26,12 @@ public:
 
 
     //add in a playlist zone from the user at a target location, check for overlaps in location
-    void addPlaylistMap(PlaylistMap map, Location targetLocation){
+    void addPlaylistMap(Playlist playlist, Location targetLocation){
         if(checkOverlap(targetLocation)){ 
-            PlaylistMap::PlaylistMaps.insert(map);
+            PlaylistMap insertMap = PlaylistMap(targetLocation,playlist);
+            PlaylistMap::PlaylistMaps.insert(insertMap);
         } else{
-            cout << "Invalid Zone" << endl;
+            cout << "Invalid zone, overlap exists" << endl;
         }
     }
 

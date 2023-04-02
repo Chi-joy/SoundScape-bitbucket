@@ -5,5 +5,7 @@
         <file>newLoc.qml</file>
         <file>marker.png</file>
         <file>marker-noshadow.png</file>
+        <file>locations.csv</file>
+        <file>mdata.csv</file>
     </qresource>
 </RCC>

@@ -84,11 +84,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     curl/Makefile.am \
-    locations.json \
+    locations.csv \
     loginMap.qml \
     main.qml \
     marker-noshadow.png \
     marker.png \
+    mdata.csv \
     newLoc.qml
 
 RESOURCES += \

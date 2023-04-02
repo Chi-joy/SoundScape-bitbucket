@@ -1,6 +1,7 @@
 #ifndef LOCATION_H
 #define LOCATION_H
-#include <QString>
+
+#include "QtCore/qstring.h"
 namespace location {
 
 
@@ -15,7 +16,7 @@ namespace location {
         Location(double lt, double ln);
         double getLat();
         double getLng();
-        double getName();
+        QString getName();
         void setName(QString);
         void setLat(double);
         void setLng(double);

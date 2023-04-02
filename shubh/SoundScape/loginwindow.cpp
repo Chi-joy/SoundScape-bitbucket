@@ -1,4 +1,5 @@
 #include "loginwindow.h"
+#include "MetaData.h"
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
@@ -20,7 +21,7 @@ LoginWindow::LoginWindow(QWidget *parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    getLocations();
+    setLists();
 
    // ui->groupBox_login->hide();
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
@@ -30,6 +31,7 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->quickWidget_map->hide();
     ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+    ui->groupBox_locations->hide();
 
     saveLocationN = new saveLocation(this);
 
@@ -50,7 +52,52 @@ LoginWindow::LoginWindow(QWidget *parent)
 
 }
 
+
+void LoginWindow::setLists() {
+
+    Metadata m = Metadata();
+    QStringListModel *locationModel = new QStringListModel(this);
+
+    std::vector<location::Location> locationVector = m.buildDataLocation("locations.csv");
+
+    int size = locationVector.size();
+    QStringList locationNames;
+
+    for (int i = 0; i < size; i++) {
+        location::Location tempLocation = locationVector[i];
+        locationNames.append(tempLocation.getName());
+    }
+
+    locationModel->setStringList(locationNames);
+    ui->listView_locations->setModel(locationModel);
+
+    QStringListModel *playlistMapsModel = new QStringListModel(this);
+
+    std::vector<PlaylistMap> playlistMapVector = m.buildData("mdata.csv");
+
+    size = playlistMapVector.size();
+    QStringList playlistMapNames;
+
+    for (int i = 0; i < size; i++) {
+        PlaylistMap tempMap = playlistMapVector[i];
+
+        //its returning url for name and playlistname for location name
+        QString q = tempMap.getPlaylist().getPlaylistName() + " X " + tempMap.getLocation().getName();
+        playlistMapNames.append(q);
+    }
+
+    playlistMapsModel->setStringList(playlistMapNames);
+    ui->listView_playlistMaps->setModel(playlistMapsModel);
+
+
+
+
+}
+
+
 void LoginWindow::getLocations() {
+
+
 
 }
 
@@ -93,6 +140,7 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->quickWidget_map->show();
         ui->groupBox_playlistMaps->show();
         ui->groupBox_playlists->show();
+        ui->groupBox_locations->show();
 
 
     }

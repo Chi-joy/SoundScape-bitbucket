@@ -29,6 +29,8 @@ private slots:
 
     void on_pushButton_createPMap_clicked();
 
+    void setLists();
+
 signals:
     void saveLocationClicked();
     void panToLocation();

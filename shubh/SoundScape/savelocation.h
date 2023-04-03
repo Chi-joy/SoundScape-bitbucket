@@ -1,6 +1,7 @@
 #ifndef SAVELOCATION_H
 #define SAVELOCATION_H
 
+#include "MetaData.h"
 #include <QDialog>
 
 namespace Ui {
@@ -26,6 +27,10 @@ private slots:
     void on_pushButton_cancel_clicked();
 
     void on_pushButton_saveNewLocation_clicked();
+    bool checkOverlap(location::Location targetLocation );
+
+    double toRadians(double degrees);
+    double distanceCheck(location::Location currentLocation, location::Location playlistLocation);
 
 private:
     Ui::saveLocation *ui;

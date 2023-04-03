@@ -2,10 +2,12 @@
 #define LOGINWINDOW_H
 
 #include "Location.h"
+#include "QtCore/qdebug.h"
 #include "pingingBackground.h"
 #include <QMainWindow>
 #include <QVariant>
 #include <QThread>
+#include <QEventLoop>
 
 class MyWorker : public QObject
 {
@@ -16,19 +18,27 @@ signals:
 
 public slots:
     void doWork() {
-        pingingBackground ping;
+        QEventLoop * eventLoop = new QEventLoop();
+        pingingBackground * ping = new pingingBackground();
         while (true) {
             // Do some work in the background
-            location::Location curLoc = ping.pingLocation();
-            Playlist::playlist p = ping.checkMapChange(curLoc);
+            mutex.lock();
+            eventLoop->processEvents();
+
+            location::Location curLoc = ping->pingLocation();
+            Playlist::playlist p = ping->checkMapChange(curLoc);
             if (p.getPlaylistName() != "dummy") {
                 emit messageReceived(p);
+                qDebug() << "Message sent from MyWorker";
             }
 
-
+            mutex.unlock();
             QThread::msleep(10*1000); // Sleep for 10 seconds (in milliseconds)
         }
     }
+
+private:
+    QMutex mutex;
 };
 
 QT_BEGIN_NAMESPACE
@@ -61,7 +71,7 @@ private slots:
     void setLists();
 
     void on_pushButton_refreshLists_clicked();
-    void handleWorkerMessage(Playlist::playlist &p);
+    void handleWorkerMessage(Playlist::playlist p);
 
 
 
@@ -77,6 +87,7 @@ private:
     void getLocations();
     QThread *workerThread;
     MyWorker *worker;
+    Playlist::playlist playlistPlaying;
 
 };
 #endif // LOGINWINDOW_H

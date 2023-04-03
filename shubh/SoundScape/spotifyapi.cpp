@@ -30,7 +30,7 @@ void SpotifyAPI::playSong(Playlist::playlist * p){
     const QUrl url(QStringLiteral("https://api.spotify.com/v1/me/player/play"));
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    std::string authBearder = "Bearer" + this->accessToken.toStdString();
+    std::string authBearder = "Bearer " + this->accessToken.toStdString();
     request.setRawHeader("Authorization", authBearder.c_str());
     QJsonObject obj;
     obj["context_uri"] = p->getPlaylistURI();
@@ -39,7 +39,8 @@ void SpotifyAPI::playSong(Playlist::playlist * p){
     QByteArray data = doc.toJson();
     // or
     // QByteArray data("{\"key1\":\"value1\",\"key2\":\"value2\"}");
-    QNetworkReply *reply = mgr->post(request, data);
+    //QNetworkReply *reply = mgr->post(request, data);
+    QNetworkReply *reply = mgr->put(request, data);
 
     QObject::connect(reply, &QNetworkReply::finished, [=](){
         if(reply->error() == QNetworkReply::NoError){

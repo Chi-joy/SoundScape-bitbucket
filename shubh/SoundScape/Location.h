@@ -20,9 +20,6 @@ namespace location {
         void setName(QString);
         void setLat(double);
         void setLng(double);
-        ~Location() {
-
-        }
     };
 }
 

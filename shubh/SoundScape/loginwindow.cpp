@@ -14,22 +14,43 @@
 #include <QQuickItem>
 #include <QGeoCoordinate>
 #include <QThread>
+#include <QMutex>
 
+//actually the main window
 
 saveLocation * saveLocationN;
 selectPlaylistWidget * playlistMapWindow;
 SpotifyAPI * spotifyAPI;
 
+//dummy playlist for when nothing is playing
+Playlist::playlist dummy("dummy", "dummy", "dummy", false);
+
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
 {
+
+    //thread for pinging in the background
+    QThread* workerThread = new QThread();
+    MyWorker *worker = new MyWorker();
+
+    worker->moveToThread(workerThread);
+    //signals connecting thread and loginWindow
+    connect(workerThread, &QThread::started, worker, &MyWorker::doWork);
+//    QObject::connect(worker,SIGNAL(messageRecieved(Playlist::playlist &p)),this,SLOT(handleWorkerMessage(Playlist::playlist &p)));
+    connect(worker, &MyWorker::messageReceived, this, &LoginWindow::handleWorkerMessage, Qt::QueuedConnection);
+
+
     ui->setupUi(this);
+
+    //sets location and playlistmap lists
     setLists();
 
     this->isLoggedIn = false;
 
    // ui->groupBox_login->hide();
+
+    //hide non login related things
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
     ui->groupBox_pushButtons->hide();
     ui->groupBox_playlists->hide();
@@ -39,15 +60,33 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
     ui->groupBox_locations->hide();
 
+    //save new location window connected to push button
     saveLocationN = new saveLocation(this);
-
     connect(ui->pushButton_createLocation, &QPushButton::clicked, saveLocationN, &saveLocation::exec);
+
+    this->playlistPlaying = dummy;
+
+}
+
+void LoginWindow::handleWorkerMessage(Playlist::playlist p)
+{
+    // check if playlist is playlist playing
+    //play playlist
+    qDebug() << "Message received in LoginWindow: " << p.getPlaylistName();
+
+    //mutex.lock();
+    if (p.getPlaylistName() != this->playlistPlaying.getPlaylistName()) {
+        this->playlistPlaying = p;
+        spotifyAPI->playSong(&p);
+    }
+    //mutex.unlock();
 
 }
 
 
 void LoginWindow::setLists() {
 
+    //set locations in listbox
     Metadata m = Metadata();
     QStringListModel *locationModel = new QStringListModel(this);
 
@@ -64,6 +103,7 @@ void LoginWindow::setLists() {
     locationModel->setStringList(locationNames);
     ui->listView_locations->setModel(locationModel);
 
+    //set playlistmaps list in listbox
     QStringListModel *playlistMapsModel = new QStringListModel(this);
 
     std::vector<PlaylistMap> playlistMapVector = m.buildData("mdata.csv");
@@ -94,29 +134,32 @@ void LoginWindow::getLocations() {
 
 }
 
+//called when 'connect to spotify' is pressed
 void LoginWindow::createSpotifyObject() {
 
 
 
+    //authenticate user
     spotifyAPI = new SpotifyAPI();
     spotifyAPI->authenticate();
 
     QMessageBox::information(this, "Connecting to Spotify", "Connecting to Spotify......Please wait for your browser to redirect.");
+
+    //hide/show some features
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->show();
     ui->pushButton_createLocation->show();
     ui->quickWidget_map->show();
     ui->listView_playlists->show();
 
-    worker = new MyWorker;
-    workerThread = new QThread;
-    worker->moveToThread(workerThread);
-    connect(workerThread, &QThread::started, worker, &MyWorker::doWork);
-    connect(worker, &MyWorker::messageReceived, this, &LoginWindow::handleWorkerMessage);
+    // connect(worker, &MyWorker::messageReceived, this, &LoginWindow::handleWorkerMessage);
+
+
+
 
     this->isLoggedIn = true;
 
-    workerThread->start();
+    //workerThread->start();
 
 
 
@@ -132,11 +175,7 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-void LoginWindow::handleWorkerMessage(Playlist::playlist &p)
-{
-    // Do something with the message received from the worker thread
-    qDebug() << "Received message from worker thread: " << p.getPlaylistName();
-}
+
 
 void LoginWindow::on_pushButton_login_clicked()
 {
@@ -256,6 +295,8 @@ void LoginWindow::on_pushButton_createPMap_clicked()
     QStringListModel *model = new QStringListModel(this);
     ui->groupBox_playlists->show();
     std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+    Playlist::playlist p = playlistVector.at(1);
+    spotifyAPI->playSong(&p);
     playlistMapWindow->setPlaylistVector(playlistVector);
     int size = playlistVector.size();
     QStringList playlistNames;

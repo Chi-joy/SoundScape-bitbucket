@@ -1,12 +1,5 @@
 #include "PlaylistMap.h"
 
-
-
-
-
-
-
-
 void PlaylistMap::updatePlaylist(Playlist::playlist updatedPlaylist){
     this->playlist = updatedPlaylist;
 }
@@ -22,6 +15,8 @@ Playlist::playlist PlaylistMap::getPlaylist(){
 location::Location PlaylistMap::getLocation(){
     return this->location;
 }
+
+
 
 
     

@@ -1,8 +1,6 @@
 #include "savelocation.h"
 #include "QtQuick/qquickitem.h"
 #include "ui_savelocation.h"
-#include "Location.h"
-#include "MetaData.h"
 #include <QMessageBox>
 
 location::Location newLocation;
@@ -25,29 +23,27 @@ saveLocation::saveLocation(QWidget *parent) : QDialog(parent)
     this->markerlatitude = 0;
     this->markerlongitude = 0;
 
-
-    //catch the signal from newLoc.qml file, update instance variables of latitude and longitude
-
-//    QQuickItem * idfk = ui->quickWidget_map_saveLocation->rootObject();
-
-//    QObject::connect(&idfk, &MapItemView::markerPositionChanged, [](const QtPositioning::QGeoCoordinate& position){
-//            qDebug() << "Marker position changed:" << position.latitude() << position.longitude();
-//        });
-
 }
 
-//void saveLocation::setCoordinates(double latitude, double longitude) {
+//converts degrees to radians
+double saveLocation::toRadians(double degrees) {
+    return degrees * M_PI / 180.0;
+}
 
-//    newLocation.setLat(latitude);
-//    newLocation.setLng(longitude);
+//returns distance in km
+double saveLocation::distanceCheck(location::Location currentLocation, location::Location playlistLocation){
+    double distLat = toRadians(playlistLocation.getLat() - currentLocation.getLat());
+    double distLong = toRadians(playlistLocation.getLng() - currentLocation.getLng());
 
-//    //write new location to file
+    double a = pow(sin(distLat / 2), 2) + cos(toRadians(currentLocation.getLat())) * cos(toRadians(playlistLocation.getLat())) * pow(sin(distLong / 2), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    double distance =  6371 * c;
 
-//}
-
+    return distance;
+}
 
 //helper method to check if placing a new zone will overlap with the others
-bool checkOverlap(location::Location targetLocation ){
+bool saveLocation::checkOverlap(location::Location targetLocation ){
 
     Metadata m = Metadata();
     std::vector<location::Location> pV = m.buildDataLocation("locations.csv");
@@ -57,10 +53,10 @@ bool checkOverlap(location::Location targetLocation ){
     for (int i = 0; i < size; i++){
         location::Location playlistLoc = pV.at(i);
 
-        double latDiffSquared = (playlistLoc.getLat() - targetLocation.getLat()) * (playlistLoc.getLat() - targetLocation.getLat());
-        double lngDiffSquared = (playlistLoc.getLng() - targetLocation.getLng()) * (playlistLoc.getLng() - targetLocation.getLng());
+//        double latDiffSquared = (playlistLoc.getLat() - targetLocation.getLat()) * (playlistLoc.getLat() - targetLocation.getLat());
+//        double lngDiffSquared = (playlistLoc.getLng() - targetLocation.getLng()) * (playlistLoc.getLng() - targetLocation.getLng());
 
-        if ( sqrt(latDiffSquared + lngDiffSquared) <= 3400){
+        if ( distanceCheck(targetLocation, playlistLoc) <= 3.4){
             //if an overlap exists return true
             return true;
         }

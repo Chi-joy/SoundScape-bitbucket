@@ -17,10 +17,6 @@ playlist::playlist(QString playlistName, QString playlistURI, QString playlistCo
     //we need a api call to get the song list and set the song vector (if we even need the songs??)
 }
 
-playlist::~playlist()
-{
-}
-
 QString playlist::getPlaylistName() {
     return playlistName;
 }

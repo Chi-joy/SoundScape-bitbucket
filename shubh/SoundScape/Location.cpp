@@ -33,3 +33,4 @@ void Location::setLng(double lg) {
 QString Location::getName() {
     return name;
 }
+

@@ -18,7 +18,6 @@ namespace Playlist {
     public:
         playlist();
         playlist(QString playlistName, QString playlistURL, QString playlistCoverURI, bool hasLocation);
-        ~playlist();
         QString getPlaylistName();
         QString getPlaylistURI();
         QString getPlaylistCoverURI();

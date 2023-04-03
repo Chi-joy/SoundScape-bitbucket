@@ -7,7 +7,7 @@ QT += location
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 
 CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11 -g
 CONFIG += console
 
 
@@ -33,7 +33,8 @@ SOURCES += \
     request.cpp \
     savelocation.cpp \
     selectplaylistwidget.cpp \
-    spotifyapi.cpp
+    spotifyapi.cpp \
+    threads.cpp
 
 HEADERS += \
     GoogleAPI.h \

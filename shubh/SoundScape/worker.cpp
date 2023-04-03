@@ -1,52 +1,35 @@
+//// myworker.cpp
 //#include "worker.h"
+//#include "QtCore/qeventloop.h"
+//#include "QtCore/qthread.h"
+//#include "pingingBackground.h"
 
-//Worker::Worker(QObject *parent) : QObject(parent)
+//MyWorker::MyWorker(QObject *parent) : QObject(parent)
 //{
-//    m_producer = false;
-//    m_count = 0;
+//    // constructor implementation
 //}
 
-//bool Worker::producer() const
+//void MyWorker::doWork()
 //{
-//    return m_producer;
-//}
+//        QEventLoop * eventLoop = new QEventLoop();
+//        pingingBackground * ping = new pingingBackground();
+//        while (true) {
+//            // Do some work in the background
+//            //mutex.lock();
+//            eventLoop->processEvents();
 
-//void Worker::setProducer(bool newProducer)
-//{
-//    m_producer = newProducer;
-//}
+//            location::Location curLoc = ping->pingLocation();
+//            //Playlist::playlist p = ping->checkMapChange(curLoc);
+//            QString latnlng = QString::number(curLoc.getLat()) + "," + QString::number(curLoc.getLng());
 
-//void Worker::consume(int value)
-//{
-//    qInfo() << this << "Consuming:" << value << QThread::currentThread();
-//}
+//            //if (p.getPlaylistName() != "dummy") {
+//                emit messageReceived(latnlng);
+//                //qDebug() << "Message sent from MyWorker";
+//            //}
 
-//void Worker::start()
-//{
-//    qInfo() << this << "Starting" << QThread::currentThread();
-//    m_timer = new QTimer(this);
-//    connect(m_timer, &QTimer::timeout,this,&Worker::timeout);
-
-//    if(m_producer)
-//    {
-//        qInfo() << this << "Starting timer" << QThread::currentThread();
-//        m_timer->setInterval(1000);
-//        m_timer->start();
+//            //mutex.unlock();
+//            QThread::msleep(10*1000); // Sleep for 10 seconds (in milliseconds)
+//        }
 //    }
-//}
 
-//void Worker::quit()
-//{
-//    qInfo() << this << "Quitting" << QThread::currentThread();
-//    m_timer->stop();
-//    emit finished();
-//}
-
-//void Worker::timeout()
-//{
-//    int value = QRandomGenerator::global()->bounded(1000);
-//    qInfo() << this << "Producing:" << value << QThread::currentThread();
-//    emit produced(value);
-//    m_count++;
-//    if(m_count == 5) quit();
-//}
+//// add implementation for messageReceived here

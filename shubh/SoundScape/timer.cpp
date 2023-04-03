@@ -1,20 +1,41 @@
-#include "GoogleAPI.h"
-#include "MetaData.h"
-#include "PlaylistMap.h"
-#include "pingingBackground.h"
-#include <QCoreApplication>
-#include <QThread>
+//#include "timer.h"
+//#include "GoogleAPI.h"
+//#include "MetaData.h"
+//#include "QtCore/qtimer.h"
+//#include <QCoreApplication>
+//#include <QThread>
 
 
 //PlaylistMap * currentMap;
 
-//pingingBackground::pingingBackground() {
+//timer::timer(QObject *parent)
+//    : QObject{parent}
+//{
+
 //    location::Location loc("dummy", 0, 0);
 //    Playlist::playlist playlist("dummy", "dummy", "dummy", false);
 //    currentMap = new PlaylistMap(loc, playlist);
-//    //default
+//    runTimer();
+
+
+
 //}
-//location::Location pingingBackground::pingLocation(){
+
+//void timer::runTimer() {
+//    QTimer * timer = new QTimer(this);
+//    QObject::connect(timer, &QTimer::timeout, this, &timer::pingLocation);
+//    timer->start(1000);
+//}
+
+
+
+////timer::pingingBackground() {
+////    location::Location loc("dummy", 0, 0);
+////    Playlist::playlist playlist("dummy", "dummy", "dummy", false);
+////    currentMap = new PlaylistMap(loc, playlist);
+////    //default
+////}
+//location::Location timer::pingLocation(){
 
 
 //    std::string url = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuBwWaguCyTIdFl5bW7gSlNgdjKhe4yhA";
@@ -51,7 +72,7 @@
 
 
 ////Method to detect a map change and return playlist accordingly
-//Playlist::playlist pingingBackground::checkMapChange(location::Location currentLocation){
+//Playlist::playlist timer::checkMapChange(location::Location currentLocation){
 
 //        Metadata m = Metadata();
 //        std::vector<PlaylistMap> pV = m.buildData("mdata.csv");

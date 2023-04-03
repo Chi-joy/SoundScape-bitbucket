@@ -35,6 +35,7 @@ SOURCES += \
     selectplaylistwidget.cpp \
     spotifyapi.cpp \
     threads.cpp \
+    timer.cpp \
     worker.cpp
 
 HEADERS += \
@@ -65,6 +66,7 @@ HEADERS += \
     savelocation.h \
     selectplaylistwidget.h \
     spotifyapi.h \
+    timer.h \
     worker.h
 
 

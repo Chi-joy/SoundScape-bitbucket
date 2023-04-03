@@ -1,11 +1,24 @@
 #include "GoogleAPI.h"
 #include "loginwindow.h"
+#include "timer.h"
 
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
 #include <iostream>
 #include <QThread>
+#include "QtCore/qtimer.h"
+
+//class MyClass : public QObject {
+//    Q_OBJECT
+//public:
+//    MyClass(QObject *parent = nullptr) : QObject(parent) {
+//        pingingBackground ping;
+//        QTimer * timer = new QTimer(this);
+//        QObject::connect(timer, &QTimer::timeout, &ping, &pingingBackground::pingLocation);
+//        timer->start(1000);
+//    }
+//};
 
 
 
@@ -28,11 +41,11 @@ int main(int argc, char *argv[])
     LoginWindow w;
     w.show();
 
-        // Wait for some time...
-    //QThread::sleep(10); // Sleep for 10 seconds
 
-        // Stop the thread and wait for it to finish
-    //thread.stop();
+//    pingingBackground ping;
+//    QTimer timer;
+//    QObject::connect(&timer, &QTimer::timeout, &ping, &pingingBackground::pingLocation);
+//    timer.start(1000);
 
 
     return a.exec();

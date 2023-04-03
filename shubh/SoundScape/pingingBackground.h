@@ -1,21 +1,21 @@
-#ifndef PINGINGBACKGROUND_H
-#define PINGINGBACKGROUND_H
+//#ifndef PINGINGBACKGROUND_H
+//#define PINGINGBACKGROUND_H
 
-#include "Location.h"
-#include "spotifyapi.h"
-#include <QCoreApplication>
-#include <QThread>
+//#include "Location.h"
+//#include <QCoreApplication>
+//#include <QThread>
+//#include "PlaylistMap.h"
 
-class pingingBackground
-{
-    public:
-        pingingBackground();
-        location::Location pingLocation();
-        Playlist::playlist checkMapChange(location::Location currentLocation);
+//class pingingBackground : public QObject
+//{
+//    Q_OBJECT
+//    public:
+//        pingingBackground();
+//        location::Location pingLocation();
+//        Playlist::playlist checkMapChange(location::Location currentLocation);
+//    protected:
 
-    protected:
+//    private:
+//};
 
-    private:
-};
-
-#endif // PINGINGBACKGROUND_H
+//#endif // PINGINGBACKGROUND_H

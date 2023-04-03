@@ -17,6 +17,7 @@ public:
     void downloadFinished(QNetworkReply * reply);
     void playSong(Playlist::playlist *);
     std::vector<Playlist::playlist> getVector();
+    QString accessToken;
 
 private:
 
@@ -24,7 +25,7 @@ private:
     void setToken();
     void setAuthCode(QString v);
     QString authCode;
-    QString accessToken;
+
     std::vector<Playlist::playlist> playlistVector;
 
 signals:

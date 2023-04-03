@@ -1,46 +1,15 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
-#include "Location.h"
-#include "QtCore/qdebug.h"
-#include "pingingBackground.h"
+#include "PlaylistMap.h"
+#include "playlist.h"
+#include "worker.h"
+
 #include <QMainWindow>
 #include <QVariant>
 #include <QThread>
 #include <QEventLoop>
 
-//QMutex mutex;
-class MyWorker : public QObject
-{
-    Q_OBJECT
-
-signals:
-    void messageReceived(Playlist::playlist &p);
-
-public slots:
-    void doWork() {
-        QEventLoop * eventLoop = new QEventLoop();
-        pingingBackground * ping = new pingingBackground();
-        while (true) {
-            // Do some work in the background
-            //mutex.lock();
-            eventLoop->processEvents();
-
-            location::Location curLoc = ping->pingLocation();
-            Playlist::playlist p = ping->checkMapChange(curLoc);
-            if (p.getPlaylistName() != "dummy") {
-                emit messageReceived(p);
-                qDebug() << "Message sent from MyWorker";
-            }
-
-            //mutex.unlock();
-            QThread::msleep(10*1000); // Sleep for 10 seconds (in milliseconds)
-        }
-    }
-
-private:
-
-};
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginWindow; }
@@ -55,6 +24,9 @@ public:
     bool isLoggedIn;
 
     ~LoginWindow();
+
+public slots:
+    void callPlaySong();
 
 private slots:
     void on_pushButton_login_clicked();
@@ -72,11 +44,16 @@ private slots:
     void setLists();
 
     void on_pushButton_refreshLists_clicked();
-    void handleWorkerMessage(Playlist::playlist p);
+    void handleWorkerMessage(QString s);
+    //Playlist::playlist checkMapChange(location::Location currentLocation);
+    //void random_number_generator(WorkerThread* workerThread);
+
 
 
 
     void on_pushButton_editPMaps_clicked();
+
+    void on_pushButton_refreshLocation_clicked();
 
 signals:
     void saveLocationClicked();
@@ -88,8 +65,9 @@ private:
     Ui::LoginWindow *ui;
     void createSpotifyObject();
     void getLocations();
-    QThread *workerThread;
-    MyWorker *worker;
+    //PlaylistMap * currentMapp;
+
+    //MyWorker *worker;
     Playlist::playlist playlistPlaying;
 
 };

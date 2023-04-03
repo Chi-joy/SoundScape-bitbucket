@@ -25,6 +25,39 @@ SpotifyAPI::SpotifyAPI(QObject *parent)
     this->spotifyAuth = new QOAuth2AuthorizationCodeFlow();
 }
 
+//void SpotifyAPI::playSong(Playlist::playlist * p){
+//    QNetworkAccessManager *mgr = new QNetworkAccessManager(this);
+//    const QUrl url(QStringLiteral("https://api.spotify.com/v1/me/player/play"));
+//    QNetworkRequest request(url);
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+//    std::string authBearder = "Bearer " + this->accessToken.toStdString();
+//    request.setRawHeader("Authorization", authBearder.c_str());
+//    QJsonObject obj;
+//    obj["context_uri"] = p->getPlaylistURI();
+//    obj["position_ms"] = "0";
+//    QJsonDocument doc(obj);
+//    QByteArray data = doc.toJson();
+//    // or
+//    // QByteArray data("{\"key1\":\"value1\",\"key2\":\"value2\"}");
+//    //QNetworkReply *reply = mgr->post(request, data);
+//    QNetworkReply *reply = mgr->put(request, data);
+//    QList q = request.rawHeaderList();
+//    QByteArray responseData = reply->readAll();
+//    QObject::connect(reply, &QNetworkReply::redirected, [=](){
+//        if(reply->error() == QNetworkReply::NoError){
+//            QString contents = QString::fromUtf8(reply->readAll());
+//            qDebug() << contents;
+//        }
+//        else{
+//            QString err = reply->errorString();
+//            qDebug() << err;
+//        }
+//        reply->deleteLater();
+//    });
+
+
+//}
+
 void SpotifyAPI::playSong(Playlist::playlist * p){
     QNetworkAccessManager *mgr = new QNetworkAccessManager(this);
     const QUrl url(QStringLiteral("https://api.spotify.com/v1/me/player/play"));
@@ -37,8 +70,18 @@ void SpotifyAPI::playSong(Playlist::playlist * p){
     obj["position_ms"] = "0";
     QJsonDocument doc(obj);
     QByteArray data = doc.toJson();
+
+    QByteArray requestData = data; // the request body data
+    QString requestUrl = url.toString(); // the request URL
+    QStringList requestHeaders;
+    foreach(QByteArray header, request.rawHeaderList()){
+        requestHeaders.append(header + ": " + request.rawHeader(header));
+    }
+    qDebug() << "Request URL: " << requestUrl;
+    qDebug() << "Request Headers: " << requestHeaders.join("\n");
+    qDebug() << "Request Data: " << QString(requestData);
+
     // or
-    // QByteArray data("{\"key1\":\"value1\",\"key2\":\"value2\"}");
     //QNetworkReply *reply = mgr->post(request, data);
     QNetworkReply *reply = mgr->put(request, data);
 
@@ -51,10 +94,7 @@ void SpotifyAPI::playSong(Playlist::playlist * p){
             QString err = reply->errorString();
             qDebug() << err;
         }
-        reply->deleteLater();
     });
-
-
 }
 
 

@@ -28,6 +28,7 @@ SOURCES += \
     locationjson.cpp \
     main.cpp \
     loginwindow.cpp \
+    pingingBackground.cpp \
     playlist.cpp \
     request.cpp \
     savelocation.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     json.hpp \
     locationjson.h \
     loginwindow.h \
+    pingingBackground.h \
     playlist.h \
     request.h \
     savelocation.h \

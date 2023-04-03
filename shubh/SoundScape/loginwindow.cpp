@@ -14,7 +14,6 @@
 #include <QQuickItem>
 #include <QGeoCoordinate>
 #include <QThread>
-#include <QMutex>
 
 //actually the main window
 
@@ -158,6 +157,8 @@ void LoginWindow::createSpotifyObject() {
 
 
     this->isLoggedIn = true;
+
+    //**********starting the thread below
 
     //workerThread->start();
 
@@ -316,5 +317,66 @@ void LoginWindow::on_pushButton_createPMap_clicked()
 void LoginWindow::on_pushButton_refreshLists_clicked()
 {
     setLists();
+}
+
+
+void LoginWindow::on_pushButton_editPMaps_clicked()
+{
+
+    QItemSelectionModel *selectionModel = ui->listView_playlistMaps->selectionModel();
+    location::Location dummyLoc("dummy", 0, 0);
+    PlaylistMap * map = new PlaylistMap(dummyLoc, dummy);
+
+
+    //dies if no locations
+    if (!selectionModel->hasSelection()) {
+        QMessageBox::information(this, "Error!", "Please select a playlist map from list");
+
+    } else {
+        Metadata m = Metadata();
+        std::vector<PlaylistMap> playlistMapVector = m.buildData("mdata.csv");
+        QModelIndex index = ui->listView_playlistMaps->currentIndex();
+        QString selectedText = index.data(Qt::DisplayRole).toString();
+        QStringList list = selectedText.split(" X ");
+        QString playlistName = list[0];
+        QString locationName = list[1];
+        int size = playlistMapVector.size();
+
+        for (int i = 0; i < size; i++) {
+
+            bool locationMatch = playlistMapVector.at(i).getLocation().getName() == locationName;
+            bool playlistMatch = playlistMapVector.at(i).getPlaylist().getPlaylistName() == playlistName;
+            if (locationMatch && playlistMatch) {
+                map = &playlistMapVector.at(i);
+                break;
+            }
+        }
+
+
+    playlistMapWindow = new selectPlaylistWidget(this);
+
+
+    QStringListModel *model = new QStringListModel(this);
+    ui->groupBox_playlists->show();
+    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+   // Playlist::playlist p = playlistVector.at(1);
+    //spotifyAPI->playSong(&p);
+    playlistMapWindow->setPlaylistVector(playlistVector);
+    PlaylistMap pM = *map;
+    playlistMapWindow->setFields(pM);
+    size = playlistVector.size();
+    QStringList playlistNames;
+
+    for (int i = 0; i < size; i++) {
+        Playlist::playlist tempPlaylist = playlistVector[i];
+        playlistNames.append(tempPlaylist.getPlaylistName());
+    }
+
+    model->setStringList(playlistNames);
+
+    playlistMapWindow->ui->listView_playlists->setModel(model);
+    playlistMapWindow->show();
+    }
+
 }
 

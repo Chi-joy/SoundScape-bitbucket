@@ -9,6 +9,7 @@
 #include <QThread>
 #include <QEventLoop>
 
+//QMutex mutex;
 class MyWorker : public QObject
 {
     Q_OBJECT
@@ -22,7 +23,7 @@ public slots:
         pingingBackground * ping = new pingingBackground();
         while (true) {
             // Do some work in the background
-            mutex.lock();
+            //mutex.lock();
             eventLoop->processEvents();
 
             location::Location curLoc = ping->pingLocation();
@@ -32,13 +33,13 @@ public slots:
                 qDebug() << "Message sent from MyWorker";
             }
 
-            mutex.unlock();
+            //mutex.unlock();
             QThread::msleep(10*1000); // Sleep for 10 seconds (in milliseconds)
         }
     }
 
 private:
-    QMutex mutex;
+
 };
 
 QT_BEGIN_NAMESPACE
@@ -74,6 +75,8 @@ private slots:
     void handleWorkerMessage(Playlist::playlist p);
 
 
+
+    void on_pushButton_editPMaps_clicked();
 
 signals:
     void saveLocationClicked();

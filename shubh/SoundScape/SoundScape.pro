@@ -34,7 +34,8 @@ SOURCES += \
     savelocation.cpp \
     selectplaylistwidget.cpp \
     spotifyapi.cpp \
-    threads.cpp
+    threads.cpp \
+    worker.cpp
 
 HEADERS += \
     GoogleAPI.h \
@@ -63,7 +64,8 @@ HEADERS += \
     request.h \
     savelocation.h \
     selectplaylistwidget.h \
-    spotifyapi.h
+    spotifyapi.h \
+    worker.h
 
 
 

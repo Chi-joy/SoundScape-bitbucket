@@ -1,6 +1,7 @@
 //#include <QMutex>
 //#include <QObject>
 //#include <QMutexLocker>
+//#include <mutex>
 
 //class SharedData : public QObject
 //{
@@ -15,7 +16,7 @@
 //    }
 
 //    int getData() const {
-//        QMutexLocker locker(&m_mutex);
+//        std::lock_guard<QMutex> locker(m_mutex);
 //        return m_data;
 //    }
 

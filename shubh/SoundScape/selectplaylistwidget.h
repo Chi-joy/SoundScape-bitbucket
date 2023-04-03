@@ -2,8 +2,7 @@
 #define SELECTPLAYLISTWIDGET_H
 
 #include <QWidget>
-#include "Location.h"
-#include "playlist.h"
+#include "PlaylistMap.h"
 
 namespace Ui {
 class selectPlaylistWidget;
@@ -19,6 +18,7 @@ public:
     Ui::selectPlaylistWidget *ui;
     std::vector<Playlist::playlist> playlistVector;
     void setPlaylistVector(std::vector<Playlist::playlist> pV);
+    void setFields(PlaylistMap pM);
 
 private slots:
     void on_pushButton_savePlaylistMap_clicked();

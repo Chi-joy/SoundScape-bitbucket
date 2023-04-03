@@ -30,6 +30,27 @@ selectPlaylistWidget::selectPlaylistWidget(QWidget *parent) :
 
 }
 
+void selectPlaylistWidget::setFields(PlaylistMap pM) {
+
+    int size = ui->listView_locations->model()->rowCount();
+    for (int i = 0; i < size; i++) {
+        QModelIndex index = ui->listView_locations->model()->index(i, 0);
+        QString item = ui->listView_locations->model()->data(index, Qt::DisplayRole).toString();
+        if (item == pM.getLocation().getName()) {
+            ui->listView_locations->setCurrentIndex(index);
+        }
+    }
+
+    int s = ui->listView_playlists->model()->rowCount();
+    for (int i = 0; i < s; i++) {
+        QModelIndex index = ui->listView_playlists->model()->index(i, 0);
+        QString item = ui->listView_playlists->model()->data(index, Qt::DisplayRole).toString();
+        if (item == pM.getLocation().getName()) {
+            ui->listView_playlists->setCurrentIndex(index);
+        }
+    }
+}
+
 
 void selectPlaylistWidget::setPlaylistVector(std::vector<Playlist::playlist> pV) {
     this->playlistVector = pV;

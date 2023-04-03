@@ -30,3 +30,6 @@ void Location::setLat(double lt) {
 void Location::setLng(double lg) {
     longitude = lg;
 }
+QString Location::getName() {
+    return name;
+}

@@ -1,26 +1,33 @@
 #include "loginwindow.h"
+#include "MetaData.h"
+
 #include "spotifyapi.h"
 #include "ui_loginwindow.h"
 #include "GoogleAPI.h"
 #include "savelocation.h"
 #include "selectplaylistwidget.h"
+#include "ui_selectplaylistwidget.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QQuickItem>
 #include <QGeoCoordinate>
+#include <QThread>
 
-    SpotifyAPI * spotifyAPI;
-    saveLocation * saveLocationN;
-    selectPlaylistWidget * playlistMap;
+
+saveLocation * saveLocationN;
+selectPlaylistWidget * playlistMapWindow;
+SpotifyAPI * spotifyAPI;
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    getLocations();
+    setLists();
+
+    this->isLoggedIn = false;
 
    // ui->groupBox_login->hide();
     connect(ui->pushButton_spotify, &QPushButton::released, this, &LoginWindow::createSpotifyObject);
@@ -30,27 +37,60 @@ LoginWindow::LoginWindow(QWidget *parent)
     ui->quickWidget_map->hide();
     ui->groupBox_playlistMaps->hide();
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
+    ui->groupBox_locations->hide();
 
     saveLocationN = new saveLocation(this);
 
     connect(ui->pushButton_createLocation, &QPushButton::clicked, saveLocationN, &saveLocation::exec);
-    //connect(ui->pushButton_createPMap, &QPushButton::clicked, playlistMap, &selectPlaylistWidget::exec);
 
-    //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(43.009953,-81.273613)));
+}
 
 
-    //connect(this, &LoginWindow::saveLocationClicked, ui->qmlWidget, &QQuickWidget::requestUpdate);
-    //import playlist playlistmap.cpp, then store the coordinates in a Location object
-//    ///*
-//    auto obj = ui->quickWidget_map->rootObject();*/
-   // connect(this, SIGNAL(setCenter(double,double)), obj, SLOT(setCenter(double,double)));
+void LoginWindow::setLists() {
+
+    Metadata m = Metadata();
+    QStringListModel *locationModel = new QStringListModel(this);
+
+    std::vector<location::Location> locationVector = m.buildDataLocation("locations.csv");
+
+    int size = locationVector.size();
+    QStringList locationNames;
+
+    for (int i = 0; i < size; i++) {
+        location::Location tempLocation = locationVector[i];
+        locationNames.append(tempLocation.getName());
+    }
+
+    locationModel->setStringList(locationNames);
+    ui->listView_locations->setModel(locationModel);
+
+    QStringListModel *playlistMapsModel = new QStringListModel(this);
+
+    std::vector<PlaylistMap> playlistMapVector = m.buildData("mdata.csv");
+
+    size = playlistMapVector.size();
+    QStringList playlistMapNames;
+
+    for (int i = 0; i < size; i++) {
+        PlaylistMap tempMap = playlistMapVector[i];
+
+        //its returning url for name and playlistname for location name
+        QString q = tempMap.getPlaylist().getPlaylistName() + " X " + tempMap.getLocation().getName();
+        playlistMapNames.append(q);
+    }
+
+    playlistMapsModel->setStringList(playlistMapNames);
+    ui->listView_playlistMaps->setModel(playlistMapsModel);
 
 
 
 
 }
 
+
 void LoginWindow::getLocations() {
+
+
 
 }
 
@@ -61,21 +101,42 @@ void LoginWindow::createSpotifyObject() {
     spotifyAPI = new SpotifyAPI();
     spotifyAPI->authenticate();
 
-    QMessageBox::information(this, "Connecting to Spotify", "Connecting to Spotify......Please wait for your browser redirect.");
+    QMessageBox::information(this, "Connecting to Spotify", "Connecting to Spotify......Please wait for your browser to redirect.");
     ui->pushButton_spotify->hide();
     ui->pushButton_playlists->show();
     ui->pushButton_createLocation->show();
     ui->quickWidget_map->show();
     ui->listView_playlists->show();
 
+    worker = new MyWorker;
+    workerThread = new QThread;
+    worker->moveToThread(workerThread);
+    connect(workerThread, &QThread::started, worker, &MyWorker::doWork);
+    connect(worker, &MyWorker::messageReceived, this, &LoginWindow::handleWorkerMessage);
+
+    this->isLoggedIn = true;
+
+    workerThread->start();
+
+
+
+
+
+
 }
 
 LoginWindow::~LoginWindow()
 {
    // delete this->spotifyAuth;
+    emit stopWorkerThread();
     delete ui;
 }
 
+void LoginWindow::handleWorkerMessage(Playlist::playlist &p)
+{
+    // Do something with the message received from the worker thread
+    qDebug() << "Received message from worker thread: " << p.getPlaylistName();
+}
 
 void LoginWindow::on_pushButton_login_clicked()
 {
@@ -93,6 +154,7 @@ void LoginWindow::on_pushButton_login_clicked()
         ui->quickWidget_map->show();
         ui->groupBox_playlistMaps->show();
         ui->groupBox_playlists->show();
+        ui->groupBox_locations->show();
 
 
     }
@@ -133,19 +195,7 @@ void LoginWindow::on_pushButton_coor_clicked()
 
         double latidudeD = googleAPI.getLocationLat();
         double longitudeD = googleAPI.getLocationLng();
-        //emit setCenter(googleAPI.getLocationLat(), googleAPI.getLocationLng());
-        //ui->quickWidget_map->rootObject()->setProperty("centerCoordinate", QVariant::fromValue(QGeoCoordinate(latidudeD, longitudeD)));
 
-//        // Get the 'map' QML item from the QQuickWidget
-//        QQuickItem *map = ui->quickWidget_map->rootObject()->findChild<QQuickItem*>("map");
-
-//        // Create a new camera object with the desired location and zoom level
-//        QGeoCoordinate newCenterCoordinate(latidudeD, longitudeD);
-//        QGeoViewCamera newCamera(newCenterCoordinate, 12);
-
-//        // Animate the map to the new camera position and zoom level
-//        QVariant animation = map->property("activeMapItem").value<QObject*>()->createAnimation(newCamera);
-//        animation.value<QAbstractAnimation*>()->start();
 
     }
 
@@ -173,21 +223,57 @@ void LoginWindow::on_pushButton_editLocation_clicked()
         int result = QMessageBox::question(this, "Confirmation", "Are you sure you wish to delete this location?");
 
         if (result) {
-            //delete location method called from nams code
+
+            Metadata m = Metadata();
+            std::vector<location::Location> locationVector = m.buildDataLocation("locations.csv");
+            QModelIndex index = ui->listView_locations->currentIndex();
+            QString selectedText = index.data(Qt::DisplayRole).toString();
+
+            int size = locationVector.size();
+
+            for (int i = 0; i < size; i++) {
+                if (locationVector.at(i).getName() == selectedText) {
+                    locationVector.erase(locationVector.begin() + i);
+                    m.writeDataLocation(locationVector, "locations.csv");
+                }
+            }
+
+        } else {
 
         }
 
-        else {
-            return;
-        }
+        setLists();
+
     }
 }
 
 
 void LoginWindow::on_pushButton_createPMap_clicked()
 {
-    playlistMap = new selectPlaylistWidget(this);
+    playlistMapWindow = new selectPlaylistWidget(this);
 
-    playlistMap->show();
+
+    QStringListModel *model = new QStringListModel(this);
+    ui->groupBox_playlists->show();
+    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+    playlistMapWindow->setPlaylistVector(playlistVector);
+    int size = playlistVector.size();
+    QStringList playlistNames;
+
+    for (int i = 0; i < size; i++) {
+        Playlist::playlist tempPlaylist = playlistVector[i];
+        playlistNames.append(tempPlaylist.getPlaylistName());
+    }
+
+    model->setStringList(playlistNames);
+
+    playlistMapWindow->ui->listView_playlists->setModel(model);
+    playlistMapWindow->show();
+}
+
+
+void LoginWindow::on_pushButton_refreshLists_clicked()
+{
+    setLists();
 }
 

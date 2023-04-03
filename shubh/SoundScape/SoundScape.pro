@@ -18,7 +18,6 @@ LIBS += -lcurl
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    BackgroundController.cpp \
     GoogleAPI.cpp \
     Location.cpp \
     MetaData.cpp \
@@ -29,6 +28,7 @@ SOURCES += \
     locationjson.cpp \
     main.cpp \
     loginwindow.cpp \
+    pingingBackground.cpp \
     playlist.cpp \
     request.cpp \
     savelocation.cpp \
@@ -57,6 +57,7 @@ HEADERS += \
     json.hpp \
     locationjson.h \
     loginwindow.h \
+    pingingBackground.h \
     playlist.h \
     request.h \
     savelocation.h \
@@ -84,11 +85,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     curl/Makefile.am \
-    locations.json \
+    locations.csv \
     loginMap.qml \
     main.qml \
     marker-noshadow.png \
     marker.png \
+    mdata.csv \
     newLoc.qml
 
 RESOURCES += \

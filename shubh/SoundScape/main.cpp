@@ -1,8 +1,14 @@
+#include "GoogleAPI.h"
 #include "loginwindow.h"
 
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <iostream>
+#include <QThread>
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -19,10 +25,15 @@ int main(int argc, char *argv[])
         }
     }
 
-    //qmlRegisterType<PlaylistMap>("PlaylistMapClass", 1, 0, "PlaylistMap");
-
-
     LoginWindow w;
     w.show();
+
+        // Wait for some time...
+    //QThread::sleep(10); // Sleep for 10 seconds
+
+        // Stop the thread and wait for it to finish
+    //thread.stop();
+
+
     return a.exec();
 }

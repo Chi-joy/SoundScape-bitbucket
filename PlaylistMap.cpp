@@ -44,6 +44,19 @@ class PlaylistMap{
         }
 
 
+    //converts degrees to radians
+    double toRadians(double degrees) {
+        return degrees * M_PI / 180.0;
+    }
+
+    //returns distance in km
+    double distanceCheck(Location currentLocation, Location playlistLocation){
+        double distLat = toRadians(playlistLocation.latitude - currentLocation.latitude);
+        double distLong = toRadians(playlistLocation.longitude - currentLocation.longitude);
+
+        double a = pow(sin(distLat / 2), 2) + cos(toRadians(currentLocation.latitude)) * cos(toRadians(playlistLocation.latitude)) * pow(sin(distLong / 2), 2);
+        double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    }
     private:
         Location location;
         Playlist playlist;

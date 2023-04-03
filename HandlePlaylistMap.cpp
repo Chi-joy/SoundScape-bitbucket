@@ -5,6 +5,7 @@
 #include "GoogleAPI.cpp"
 
 
+//handles the user commands that affect the playlistMap distribution
 class HandlePlaylistMap{
 public:
 
@@ -13,9 +14,9 @@ public:
 
         //iterate through every existing zone and check for overlaps within the circumference
         for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){
-            Location playlistLoc = it->getLocation();
+            Location playlistLocation = it->getLocation();
 
-            if ( sqrt((playlistLoc.latitude - targetLocation.latitude)^2 + (playlistLoc.longitude - targetLocation.longitude)^2) <= 6800){
+            if ( distanceCheck(targetLocation, playlistLocation) <= 6800){
                 //if an overlap exists return false to indicate failure
                 return false;
             }

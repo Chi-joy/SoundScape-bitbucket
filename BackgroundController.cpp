@@ -30,14 +30,14 @@ class BackgroundController{
         return(currentLocation);
         
     }
-
+    
     //Method to detect a map change and swap the current PlaylistMap
     //if it detects a map change it updates, if current user is within none of them then exit
     void checkMapChange(Location currentLocation){
         
         for ( std::set<PlaylistMap>::iterator it = PlaylistMap::PlaylistMaps.begin(); it != PlaylistMap::PlaylistMaps.end(); i++ ){   
-            Location playlistLoc = it->getLocation();
-            if ( sqrt((playlistLoc.latitude - currentLocation.latitude)^2 + (playlistLoc.longitude - currentLocation.longitude)^2) <= 3400){
+            Location playlistLocation = it->getLocation();
+            if ( distanceCheck(currentLocation, playlistLocation) <= 3.4){
                 currentMap = *it;
                 break;
             }
@@ -63,3 +63,4 @@ int main() {
     
     return 0;
 }
+

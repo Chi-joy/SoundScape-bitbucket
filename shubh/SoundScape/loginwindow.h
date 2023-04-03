@@ -1,6 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
+#include "Location.h"
 #include <QMainWindow>
 #include <QVariant>
 

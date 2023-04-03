@@ -30,6 +30,7 @@ selectPlaylistWidget::selectPlaylistWidget(QWidget *parent) :
 
 }
 
+
 void selectPlaylistWidget::setPlaylistVector(std::vector<Playlist::playlist> pV) {
     this->playlistVector = pV;
 }
@@ -57,35 +58,13 @@ void selectPlaylistWidget::on_pushButton_savePlaylistMap_clicked()
     }
 
     PlaylistMap pM(locationObj, playlistObj);
+
+
     std::vector<PlaylistMap> pV = m.buildData("mdata.csv");
     pV.push_back(pM);
     m.writeData(pV,"mdata.csv");
 
 
-}
-
-//helper method to check if placing a new zone will overlap with the others
-bool checkOverlap(location::Location targetLocation ){
-
-    Metadata m = Metadata();
-    std::vector<PlaylistMap> pV = m.buildData("mdata.csv");
-    int size = pV.size();
-
-    //iterate through every existing zone and check for overlaps within the circumference
-    for (int i = 0; i < size; i++){
-        PlaylistMap it = pV.at(i);
-        location::Location playlistLoc = it.getLocation();
-
-        double latDiffSquared = (playlistLoc.getLat() - targetLocation.getLat()) * (playlistLoc.getLat() - targetLocation.getLat());
-        double lngDiffSquared = (playlistLoc.getLng() - targetLocation.getLng()) * (playlistLoc.getLng() - targetLocation.getLng());
-
-        if ( sqrt(latDiffSquared + lngDiffSquared) <= 3400){
-            //if an overlap exists return false to indicate failure
-            return false;
-        }
-    }
-    //if you don't find an overlap, return true
-    return true;
 }
 
 

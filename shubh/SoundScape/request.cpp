@@ -2,12 +2,7 @@
  * @file
  * @brief This file contains the implementation of a program that interacts with the Spotify Web API to retrieve playlists.
  */
-/* -------------------
-SHUBH FAGERIA
-FEBRUARY 7, 2023
-CS3307
-Assignment 1
---------------------*/
+
 
 #include <cstddef>
 #include <iostream>

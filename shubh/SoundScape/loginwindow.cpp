@@ -1,3 +1,12 @@
+/**
+
+@brief The loginWindow class is responsible for handling user authentication through Spotify and Google APIs.
+This class is the initial window the user is presented with, and is responsible for handling user authentication
+through both Spotify and Google APIs. Upon successful authentication, the user will be directed to the playlist selection
+screen (selectPlaylistWidget).
+@author Shubh Fageria, Namashivayan Sivaram, Chi Zhang, Emily Chan, Valerie Lozano
+*/
+
 #include "loginwindow.h"
 #include "MetaData.h"
 
@@ -71,12 +80,29 @@ Playlist::playlist dummy("dummy", "dummy", "dummy", false);
 
 //};
 
+/**
 
+@brief Converts degrees to radians.
+@param degrees The angle in degrees to be converted.
+@return The equivalent angle in radians.
+*/
 //converts degrees to radians
 double toRadians(double degrees) {
     return degrees * M_PI / 180.0;
 }
 
+/**
+
+@brief Calculates the distance in kilometers between two locations.
+
+Uses the Haversine formula to calculate the distance between two locations on the Earth's surface.
+
+@param currentLocation The current location.
+
+@param playlistLocation The location of the playlist.
+
+@return The distance in kilometers between the two locations.
+*/
 //returns distance in km
 double distanceCheck(location::Location currentLocation, location::Location playlistLocation){
     double distLat = toRadians(playlistLocation.getLat() - currentLocation.getLat());
@@ -171,6 +197,11 @@ double distanceCheck(location::Location currentLocation, location::Location play
 //}
 //WorkerThread *workerThread;
 
+/**
+
+@brief Constructor for LoginWindow class
+@param parent Parent widget (default is nullptr)
+*/
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
@@ -223,6 +254,12 @@ LoginWindow::LoginWindow(QWidget *parent)
 
 }
 
+/**
+
+@brief Calls the playSong function of SpotifyAPI object with the current playlist.
+Gets the current playlist of the currentMapp object and calls the playSong function of the
+SpotifyAPI object with the current playlist.
+*/
 void LoginWindow::callPlaySong() {
     Playlist::playlist p = currentMapp->getPlaylist();
     spotifyAPI->playSong(&p);
@@ -245,6 +282,14 @@ void LoginWindow::callPlaySong() {
 //    return distance;
 //}
 
+/**
+
+@brief Checks if there is a change in the location on the map and returns the corresponding playlist
+
+@param currentLocation The current location of the user
+
+@return The playlist corresponding to the new location or a dummy playlist if there is no match
+*/
 Playlist::playlist checkMapChange(location::Location currentLocation){
 
         Metadata m = Metadata();
@@ -313,6 +358,26 @@ Playlist::playlist checkMapChange(location::Location currentLocation){
 //    }
 //}
 
+/**
+
+@brief Handles the message received from the worker thread.
+
+This function takes a QString argument 'coor' which contains the latitude and longitude
+
+values separated by a comma. The function parses these values, creates a new location::Location
+
+object with these values, and calls the checkMapChange() function to check for any changes
+
+in the user's location.
+
+If there is a change in the location and the playlist being played is not the same as the
+
+new playlist, this function sets the new playlist as the currently playing playlist and
+
+plays it using the spotifyAPI object.
+
+@param coor A QString containing the latitude and longitude values separated by a comma.
+**/
 void LoginWindow::handleWorkerMessage(QString coor)
 {
     // check if playlist is playlist playing

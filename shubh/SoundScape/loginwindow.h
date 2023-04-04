@@ -55,6 +55,8 @@ private slots:
 
     void on_pushButton_refreshLocation_clicked();
 
+    void on_pushButton_clicked();
+
 signals:
     void saveLocationClicked();
     void panToLocation();

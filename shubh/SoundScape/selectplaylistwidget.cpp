@@ -1,5 +1,5 @@
 /**
- * @file selectplaylistwidget.h
+ * @file selectplaylistwidget.cpp
  * @brief Implementation of the selectplaylistwidget class.
  * 
  * This file contains the implementation of the selectplaylistwidget class, which

@@ -399,7 +399,10 @@ void LoginWindow::handleWorkerMessage(QString coor)
 
 }
 
-
+/**
+ * Pulls metadata and intializes saved locations and 
+ * saved playlist maps
+ */
 void LoginWindow::setLists() {
 
     //set locations in listbox
@@ -450,7 +453,10 @@ void LoginWindow::getLocations() {
 
 }
 
-//called when 'connect to spotify' is pressed
+/**
+ * called when connet to spotify is pressed, opens new windows and
+ * authenticates user for spotify usage
+ */
 void LoginWindow::createSpotifyObject() {
 
 
@@ -477,26 +483,12 @@ void LoginWindow::createSpotifyObject() {
     this->isLoggedIn = true;
 
     QLabel *label = new QLabel(this);
-    //label->setText("Count: 0");
-    //setCentralWidget(label);
 
-    //WorkerThread* workerThread = new WorkerThread(label);
-    //workerThread->start();
-
-//    QObject::connect(workerThread, &WorkerThread::started, [=]() {
-//        random_number_generator(workerThread);
-//    });
-
-//    auto func = [&workerThread]() {
-//        random_number_generator(workerThread);
-//    };
-//    class std::thread t(func);
-//    t.detach();
-
-    //**********starting the thread below
-   // timer mC;
 }
 
+/**
+ * Destrutor for login window, destroys the UI
+ */
 LoginWindow::~LoginWindow()
 {
    // delete this->spotifyAuth;
@@ -508,7 +500,10 @@ LoginWindow::~LoginWindow()
 }
 
 
-
+/**
+ * Handles the event when the 'Login' button is clicked.
+ * initial login, when app opens (test,test)
+ */
 void LoginWindow::on_pushButton_login_clicked()
 {
     QString username = ui->lineEdit_username->text();
@@ -531,7 +526,10 @@ void LoginWindow::on_pushButton_login_clicked()
     }
 }
 
-
+/**
+ * Handles the event when the 'Playlists' button is clicked.
+ * gets the vector of playlist pulled from spotify
+ */
 void LoginWindow::on_pushButton_playlists_clicked()
 {
 
@@ -552,6 +550,11 @@ void LoginWindow::on_pushButton_playlists_clicked()
 
 }
 
+
+/**
+ * Handles the event when the 'Get Coordinates' button is clicked.
+ * gets the coordinates of current location
+ */
 
 void LoginWindow::on_pushButton_coor_clicked()
 {
@@ -574,7 +577,10 @@ void LoginWindow::on_pushButton_coor_clicked()
 
 }
 
-
+/**
+ * Handles the event when the 'Create Location' button is clicked.
+ * creates new location in specified file
+ */
 void LoginWindow::on_pushButton_createLocation_clicked()
 {
     //dies if the methods not here idk why
@@ -582,7 +588,10 @@ void LoginWindow::on_pushButton_createLocation_clicked()
 
 }
 
-
+/**
+ * Handles the event when the 'Edit Location' button is clicked.
+ * Allows for a location to be edited
+ */
 void LoginWindow::on_pushButton_editLocation_clicked()
 {
     QItemSelectionModel *selectionModel = ui->listView_locations->selectionModel();
@@ -654,60 +663,6 @@ void LoginWindow::on_pushButton_refreshLists_clicked()
 void LoginWindow::on_pushButton_editPMaps_clicked()
 {
 
-//    QItemSelectionModel *selectionModel = ui->listView_playlistMaps->selectionModel();
-//    location::Location dummyLoc("dummy", 0, 0);
-//    PlaylistMap * map = new PlaylistMap(dummyLoc, dummy);
-
-
-//    //dies if no locations
-//    if (!selectionModel->hasSelection()) {
-//        QMessageBox::information(this, "Error!", "Please select a playlist map from list");
-
-//    } else {
-//        Metadata m = Metadata();
-//        std::vector<PlaylistMap> playlistMapVector = m.buildData("mdata.csv");
-//        QModelIndex index = ui->listView_playlistMaps->currentIndex();
-//        QString selectedText = index.data(Qt::DisplayRole).toString();
-//        QStringList list = selectedText.split(" X ");
-//        QString playlistName = list[0];
-//        QString locationName = list[1];
-//        int size = playlistMapVector.size();
-
-//        for (int i = 0; i < size; i++) {
-
-//            bool locationMatch = playlistMapVector.at(i).getLocation().getName() == locationName;
-//            bool playlistMatch = playlistMapVector.at(i).getPlaylist().getPlaylistName() == playlistName;
-//            if (locationMatch && playlistMatch) {
-//                map = &playlistMapVector.at(i);
-//                break;
-//            }
-//        }
-
-
-//    playlistMapWindow = new selectPlaylistWidget(this);
-
-
-//    QStringListModel *model = new QStringListModel();
-//    ui->groupBox_playlists->show();
-//    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
-//    Playlist::playlist p = playlistVector.at(1);
-//    spotifyAPI->playSong(&p);
-//    playlistMapWindow->setPlaylistVector(playlistVector);
-//    PlaylistMap pM = *map;
-//    playlistMapWindow->setFields(pM);
-//    size = playlistVector.size();
-//    QStringList playlistNames;
-
-//    for (int i = 0; i < size; i++) {
-//        Playlist::playlist tempPlaylist = playlistVector[i];
-//        playlistNames.append(tempPlaylist.getPlaylistName());
-//    }
-
-//    model->setStringList(playlistNames);
-
-//    playlistMapWindow->ui->listView_playlists->setModel(model);
-//    playlistMapWindow->show();
-//    }
 
 }
 
@@ -729,60 +684,78 @@ void LoginWindow::on_pushButton_refreshLocation_clicked()
 
 
 
+void LoginWindow::on_pushButton_clicked()
+{
+    bool ok;
+    double latitude = QInputDialog::getDouble(nullptr, "Input", "Enter latitude:", 0, -1000, 1000, 6, &ok);
+    double longitude = QInputDialog::getDouble(nullptr, "Input", "Enter longitude:", 0, -1000, 1000, 6, &ok);
+    //gAPI->getLocation();
+    location::Location newLoc(latitude, longitude);
+    //QString message = "LAT: " + QString::number(gAPI->getLocationLat());
+    //QMessageBox::information(this, "Error!", message);
+    Playlist::playlist p = checkMapChange(newLoc);
+    if (p.getPlaylistName() != "dummy") {
+        spotifyAPI->playSong(&p);
+    }
+}
+
+
+void LoginWindow::on_pushButton_createPMap_clicked()
+{
+    playlistMapWindow = new selectPlaylistWidget(this);
+
+
+    QStringListModel *model = new QStringListModel(this);
+    ui->groupBox_playlists->show();
+    std::vector<Playlist::playlist> playlistVector = spotifyAPI->getVector();
+    Playlist::playlist p = playlistVector.at(1);
+    spotifyAPI->playSong(&p);
+    playlistMapWindow->setPlaylistVector(playlistVector);
+    int size = playlistVector.size();
+    QStringList playlistNames;
+
+    for (int i = 0; i < size; i++) {
+        Playlist::playlist tempPlaylist = playlistVector[i];
+        playlistNames.append(tempPlaylist.getPlaylistName());
+    }
+
+    model->setStringList(playlistNames);
+
+    playlistMapWindow->ui->listView_playlists->setModel(model);
+    playlistMapWindow->show();
+}
+
+
+void LoginWindow::on_pushButton_refreshLists_clicked()
+{
+    setLists();
+}
+
+
+void LoginWindow::on_pushButton_editPMaps_clicked()
+{
 
 
 
 
-////Method to detect a map change and return playlist accordingly
-//Playlist::playlist checkMapChange(location::Location currentLocation){
-
-//        Metadata m = Metadata();
-//        std::vector<PlaylistMap> pV = m.buildData("mdata.csv");
-//        int size = pV.size();
-
-//        for (int i = 0; i < size; i++){
-//            PlaylistMap tempMap = pV.at(i);
-//            location::Location playlistLoc = pV.at(i).getLocation();
-
-//            double latDiffSquared = (playlistLoc.getLat() - currentLocation.getLat()) * (playlistLoc.getLat() - currentLocation.getLat());
-//            double lngDiffSquared = (playlistLoc.getLng() - currentLocation.getLng()) * (playlistLoc.getLng() - currentLocation.getLng());
-
-////            if (isPlaying) {
-////            //if they're already in the map, dont send another copy of map
-////                bool locationSame = tempMap.getLocation().getName() == currentMapp->getLocation().getName();
-////                bool playlistSame = tempMap.getPlaylist().getPlaylistName() == currentMapp->getPlaylist().getPlaylistName();
-
-////                if (locationSame && playlistSame ) {
-////                    continue;
-////                }
-////            }
-
-//            //get distance between coordinates
-//            if ( distanceCheck(currentLocation, playlistLoc) <= 3.4){
-
-//                //if logged into spotify, play song
-//                //if (this->isLoggedIn) {
-
-//                    Playlist::playlist p = pV.at(i).getPlaylist();
-//                    isPlaying = true;
-//                    PlaylistMap * pM = &pV.at(i);
-//                    ::currentMapp = pM;
-//                    return p;
-
-//                    //spotifyAPI->playSong(&p);
-
-//                //}
-
-//            }
-//        }
-
-//        //dummy playlist to return if no match
-//        Playlist::playlist dummy("dummy","dummy","dummy", false);
-//        return dummy;
-//        //if you don't find an overlap return false
+}
 
 
-//}
+void LoginWindow::on_pushButton_refreshLocation_clicked()
+{
+    gAPI->getLocation();
+    location::Location newLoc(gAPI->getLocationLat(), gAPI->getLocationLng());
+    QString message = "LAT: " + QString::number(gAPI->getLocationLat());
+    QMessageBox::information(this, "Error!", message);
+    Playlist::playlist p = checkMapChange(newLoc);
+    if (p.getPlaylistName() != "dummy") {
+        spotifyAPI->playSong(&p);
+    }
+
+
+
+}
+
 
 
 

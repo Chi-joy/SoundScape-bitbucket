@@ -39,9 +39,9 @@ namespace Song {
  		* 
  		* This constructor creates a new Song object with the given song name, song URI, and song artist.
  		* 
- 		* @param songName name of the song
-		* @param songURI identifier for the song
-		* @param songArtist song's artist
+ 		* @param songName Name of the song.
+		* @param songURI Identifier for the song.
+		* @param songArtist Song's artist.
 		*/
         song(QString songName, QString songURI, QString songArtist);
         
@@ -53,42 +53,42 @@ namespace Song {
       	/**
  		* @brief Gets a song name.
  		* 
- 		* @return songName returns a song name
+ 		* @return A song name.
  		*/
         QString getSongName();
       
       	/**
  		* @brief Gets a song identifier.
  		*
- 		* @return songURI returns the song identifier 
+ 		* @return The song identifier.
  		*/
         QString getSongURI();
       
       	/**
  		* @brief Gets a song artist.
  		* 
- 		* @return songArtist returns the song artist
+ 		* @return The song artist.
  		*/
         QString getSongArtist();
 
         /**
  		* @brief Sets a song name.
  		* 
-		* @param newName the new song name
+		* @param newName The new song name.
  		*/
       	void setSongName(QString newName);
       
       	/**
  		* @brief Sets a song identifier.
 		* 
- 		* @param songURI the new song identifier
+ 		* @param songURI The new song identifier.
  		*/
         void setSongURI(QString songURI);
       
       	/**
  		* @brief Sets a song artist.
  		* 
- 		* @param songArtist the new song artist
+ 		* @param songArtist The new song artist.
  		*/
         void setSongArtist(QString songArtist);
     };

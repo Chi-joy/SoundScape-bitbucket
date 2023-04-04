@@ -1,3 +1,12 @@
+/**
+
+@file loginwindow.cpp
+@brief Implementation of LoginWindow class, which represents the main window of the application.
+It provides a user interface for logging in, accessing Spotify API, and displaying user's playlists.
+@author Shubh Fageria, Namashivayan Sivaram, Chi Zhang, Emily Chan, Valerie Lozano
+@date 2023-04-03
+*/
+
 #include "loginwindow.h"
 #include "Location.h"
 #include "spotifyapi.h"
@@ -10,6 +19,12 @@
 #include <QQuickView>
 
     SpotifyAPI * spotifyAPI;
+/**
+
+@brief Constructs a LoginWindow object.
+
+@param parent Pointer to the parent widget.
+*/
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginWindow)
@@ -28,6 +43,9 @@ LoginWindow::LoginWindow(QWidget *parent)
 
 }
 
+/**
+@brief Creates an instance of SpotifyAPI and authenticates the user.
+*/
 void LoginWindow::createSpotifyObject() {
 
     spotifyAPI = new SpotifyAPI();
@@ -39,13 +57,24 @@ void LoginWindow::createSpotifyObject() {
 
 }
 
+/**
+@brief Destroys the LoginWindow object.
+*/
+
 LoginWindow::~LoginWindow()
 {
    // delete this->spotifyAuth;
     delete ui;
 }
 
+/**
 
+@brief Handles the login button click event.
+
+If the user enters incorrect login credentials, an error message is displayed.
+
+Otherwise, the Spotify button is displayed.
+*/
 void LoginWindow::on_pushButton_login_clicked()
 {
     QString username = ui->lineEdit_username->text();
@@ -62,7 +91,12 @@ void LoginWindow::on_pushButton_login_clicked()
     }
 }
 
+/**
 
+@brief Handles the playlists button click event.
+
+Retrieves the user's playlists from SpotifyAPI and displays them in a list view.
+*/
 void LoginWindow::on_pushButton_playlists_clicked()
 {
 
@@ -84,7 +118,11 @@ void LoginWindow::on_pushButton_playlists_clicked()
 
 }
 
+/**
 
+@brief Handles the coordinate button click event.
+Retrieves the user's location using GoogleAPI and displays the latitude and longitude in a message box.
+*/
 void LoginWindow::on_pushButton_coor_clicked()
 {
     QQuickView view;

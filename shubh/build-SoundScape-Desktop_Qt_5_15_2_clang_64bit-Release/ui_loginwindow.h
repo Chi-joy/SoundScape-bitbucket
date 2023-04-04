@@ -45,16 +45,25 @@ public:
     QListView *listView_playlists;
     QGroupBox *groupBox_pushButtons;
     QPushButton *pushButton_playlists;
-    QPushButton *pushButton_coor;
+    QPushButton *pushButton_createLocation;
     QPushButton *pushButton_spotify;
+    QPushButton *pushButton_refreshLocation;
+    QPushButton *pushButton_createPMap;
+    QGroupBox *groupBox_playlistMaps;
+    QListView *listView_playlistMaps;
+    QPushButton *pushButton_editLocation;
+    QPushButton *pushButton_refreshLists;
     QQuickWidget *quickWidget_map;
+    QGroupBox *groupBox_locations;
+    QListView *listView_locations;
+    QPushButton *pushButton;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *LoginWindow)
     {
         if (LoginWindow->objectName().isEmpty())
             LoginWindow->setObjectName(QString::fromUtf8("LoginWindow"));
-        LoginWindow->resize(809, 412);
+        LoginWindow->resize(820, 455);
         LoginWindow->setStyleSheet(QString::fromUtf8(""));
         centralwidget = new QWidget(LoginWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
@@ -119,41 +128,88 @@ public:
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         groupBox_playlists = new QGroupBox(centralwidget);
         groupBox_playlists->setObjectName(QString::fromUtf8("groupBox_playlists"));
-        groupBox_playlists->setGeometry(QRect(10, 10, 169, 361));
+        groupBox_playlists->setGeometry(QRect(10, 10, 169, 211));
         listView_playlists = new QListView(groupBox_playlists);
         listView_playlists->setObjectName(QString::fromUtf8("listView_playlists"));
-        listView_playlists->setGeometry(QRect(1, 20, 171, 351));
+        listView_playlists->setGeometry(QRect(1, 20, 171, 191));
         listView_playlists->setStyleSheet(QString::fromUtf8("background: white;\n"
 "color: black;"));
         groupBox_pushButtons = new QGroupBox(centralwidget);
         groupBox_pushButtons->setObjectName(QString::fromUtf8("groupBox_pushButtons"));
-        groupBox_pushButtons->setGeometry(QRect(620, 0, 181, 161));
+        groupBox_pushButtons->setGeometry(QRect(630, -10, 181, 431));
         pushButton_playlists = new QPushButton(groupBox_pushButtons);
         pushButton_playlists->setObjectName(QString::fromUtf8("pushButton_playlists"));
-        pushButton_playlists->setGeometry(QRect(20, 22, 147, 32));
+        pushButton_playlists->setGeometry(QRect(20, 20, 147, 32));
         pushButton_playlists->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
 "color:black;\n"
 "border-style: outset;\n"
 "border-radius: 10px;\n"
 ""));
-        pushButton_coor = new QPushButton(groupBox_pushButtons);
-        pushButton_coor->setObjectName(QString::fromUtf8("pushButton_coor"));
-        pushButton_coor->setGeometry(QRect(20, 56, 147, 32));
-        pushButton_coor->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
+        pushButton_createLocation = new QPushButton(groupBox_pushButtons);
+        pushButton_createLocation->setObjectName(QString::fromUtf8("pushButton_createLocation"));
+        pushButton_createLocation->setGeometry(QRect(20, 60, 147, 32));
+        pushButton_createLocation->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
 "color:black;\n"
 "border-style: outset;\n"
 "border-radius: 10px;"));
         pushButton_spotify = new QPushButton(groupBox_pushButtons);
         pushButton_spotify->setObjectName(QString::fromUtf8("pushButton_spotify"));
-        pushButton_spotify->setGeometry(QRect(20, 90, 147, 32));
+        pushButton_spotify->setGeometry(QRect(20, 20, 147, 32));
         pushButton_spotify->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
+"color:black;\n"
+"border-style: outset;\n"
+"border-radius: 10px;"));
+        pushButton_refreshLocation = new QPushButton(groupBox_pushButtons);
+        pushButton_refreshLocation->setObjectName(QString::fromUtf8("pushButton_refreshLocation"));
+        pushButton_refreshLocation->setGeometry(QRect(20, 180, 147, 32));
+        pushButton_refreshLocation->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
+"color:black;\n"
+"border-style: outset;\n"
+"border-radius: 10px;"));
+        pushButton_createPMap = new QPushButton(groupBox_pushButtons);
+        pushButton_createPMap->setObjectName(QString::fromUtf8("pushButton_createPMap"));
+        pushButton_createPMap->setGeometry(QRect(20, 140, 147, 32));
+        pushButton_createPMap->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
+"color:black;\n"
+"border-style: outset;\n"
+"border-radius: 10px;"));
+        groupBox_playlistMaps = new QGroupBox(groupBox_pushButtons);
+        groupBox_playlistMaps->setObjectName(QString::fromUtf8("groupBox_playlistMaps"));
+        groupBox_playlistMaps->setGeometry(QRect(10, 270, 161, 151));
+        listView_playlistMaps = new QListView(groupBox_playlistMaps);
+        listView_playlistMaps->setObjectName(QString::fromUtf8("listView_playlistMaps"));
+        listView_playlistMaps->setGeometry(QRect(0, 20, 161, 171));
+        listView_playlistMaps->setStyleSheet(QString::fromUtf8("background: white;\n"
+"color: black;"));
+        pushButton_editLocation = new QPushButton(groupBox_pushButtons);
+        pushButton_editLocation->setObjectName(QString::fromUtf8("pushButton_editLocation"));
+        pushButton_editLocation->setGeometry(QRect(20, 100, 147, 32));
+        pushButton_editLocation->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
+"color:black;\n"
+"border-style: outset;\n"
+"border-radius: 10px;"));
+        pushButton_refreshLists = new QPushButton(groupBox_pushButtons);
+        pushButton_refreshLists->setObjectName(QString::fromUtf8("pushButton_refreshLists"));
+        pushButton_refreshLists->setGeometry(QRect(20, 220, 147, 32));
+        pushButton_refreshLists->setStyleSheet(QString::fromUtf8("background-color:rgb(30,215,96);\n"
 "color:black;\n"
 "border-style: outset;\n"
 "border-radius: 10px;"));
         quickWidget_map = new QQuickWidget(centralwidget);
         quickWidget_map->setObjectName(QString::fromUtf8("quickWidget_map"));
-        quickWidget_map->setGeometry(QRect(190, 30, 431, 341));
+        quickWidget_map->setGeometry(QRect(190, 30, 431, 381));
         quickWidget_map->setResizeMode(QQuickWidget::SizeRootObjectToView);
+        groupBox_locations = new QGroupBox(centralwidget);
+        groupBox_locations->setObjectName(QString::fromUtf8("groupBox_locations"));
+        groupBox_locations->setGeometry(QRect(10, 230, 169, 181));
+        listView_locations = new QListView(groupBox_locations);
+        listView_locations->setObjectName(QString::fromUtf8("listView_locations"));
+        listView_locations->setGeometry(QRect(0, 20, 171, 131));
+        listView_locations->setStyleSheet(QString::fromUtf8("background: white;\n"
+"color: black;"));
+        pushButton = new QPushButton(groupBox_locations);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(0, 150, 171, 32));
         LoginWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(LoginWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -196,9 +252,16 @@ public:
         label_4->setText(QCoreApplication::translate("LoginWindow", "Username:", nullptr));
         groupBox_playlists->setTitle(QCoreApplication::translate("LoginWindow", "My playlists:", nullptr));
         groupBox_pushButtons->setTitle(QString());
-        pushButton_playlists->setText(QCoreApplication::translate("LoginWindow", "Get my playlists", nullptr));
-        pushButton_coor->setText(QCoreApplication::translate("LoginWindow", "Get my coordinates", nullptr));
+        pushButton_playlists->setText(QCoreApplication::translate("LoginWindow", "Get My Playlists", nullptr));
+        pushButton_createLocation->setText(QCoreApplication::translate("LoginWindow", "Create Location Zone", nullptr));
         pushButton_spotify->setText(QCoreApplication::translate("LoginWindow", "Connect to Spotify", nullptr));
+        pushButton_refreshLocation->setText(QCoreApplication::translate("LoginWindow", "Refresh Location", nullptr));
+        pushButton_createPMap->setText(QCoreApplication::translate("LoginWindow", "Create Playlist Map", nullptr));
+        groupBox_playlistMaps->setTitle(QCoreApplication::translate("LoginWindow", "My Playlist Maps:", nullptr));
+        pushButton_editLocation->setText(QCoreApplication::translate("LoginWindow", "Delete Location Zone", nullptr));
+        pushButton_refreshLists->setText(QCoreApplication::translate("LoginWindow", "Refresh Lists", nullptr));
+        groupBox_locations->setTitle(QCoreApplication::translate("LoginWindow", "My locations:", nullptr));
+        pushButton->setText(QCoreApplication::translate("LoginWindow", "Change Location Manually", nullptr));
     } // retranslateUi
 
 };

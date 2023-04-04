@@ -3,7 +3,19 @@
 #include <QtCore/qurl.h>
 
 namespace QmlCacheGeneratedCode {
+namespace _0x5f__loginMap_qml { 
+    extern const unsigned char qmlData[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), nullptr, nullptr
+    };
+}
 namespace _0x5f__main_qml { 
+    extern const unsigned char qmlData[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), nullptr, nullptr
+    };
+}
+namespace _0x5f__newLoc_qml { 
     extern const unsigned char qmlData[];
     const QQmlPrivate::CachedQmlUnit unit = {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), nullptr, nullptr
@@ -23,7 +35,9 @@ Q_GLOBAL_STATIC(Registry, unitRegistry)
 
 
 Registry::Registry() {
+        resourcePathToCachedUnit.insert(QStringLiteral("/loginMap.qml"), &QmlCacheGeneratedCode::_0x5f__loginMap_qml::unit);
         resourcePathToCachedUnit.insert(QStringLiteral("/main.qml"), &QmlCacheGeneratedCode::_0x5f__main_qml::unit);
+        resourcePathToCachedUnit.insert(QStringLiteral("/newLoc.qml"), &QmlCacheGeneratedCode::_0x5f__newLoc_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.version = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

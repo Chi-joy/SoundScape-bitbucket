@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../group20/shubh/SoundScape/spotifyapi.h"
+#include "../SoundScape/spotifyapi.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

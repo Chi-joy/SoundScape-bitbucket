@@ -1,3 +1,13 @@
+/**
+ * @file savelocation.cpp
+ * @brief Implementation of the savelocation class.
+ * 
+ * This file contains the implementation of the savelocation class, which
+ * is used to save a location for a user.
+ * 
+ * @author Shubh Fageria, Namashivayan Sivaram, Chi Zhang, Emily Chan, Valerie Lozano
+ */
+
 #include "savelocation.h"
 #include "QtQuick/qquickitem.h"
 #include "ui_savelocation.h"
@@ -6,12 +16,16 @@
 location::Location newLocation;
 QWidget * parentWindow;
 
+/**
+ * @brief Constructs a new saveLocation dialog.
+ *
+ * @param parent The parent widget of the dialog.
+ */
 saveLocation::saveLocation(QWidget *parent) : QDialog(parent)
     , ui(new Ui::saveLocation)
 {
 
     ui->setupUi(this);
-
 
     parentWindow = parent;
 
@@ -22,15 +36,24 @@ saveLocation::saveLocation(QWidget *parent) : QDialog(parent)
 
     this->markerlatitude = 0;
     this->markerlongitude = 0;
-
 }
 
-//converts degrees to radians
+/**
+ * @brief Converts degrees to radians.
+ *
+ * @param degrees The degrees to be converted to radians.
+ */
 double saveLocation::toRadians(double degrees) {
     return degrees * M_PI / 180.0;
 }
 
-//returns distance in km
+/**
+ * @brief Calculates the distance between two locations.
+ *
+ * @param currentLocation The current location.
+ * @param playlistLocation The location of a playlist item.
+ * @return The distance between the two locations in kilometers.
+ */
 double saveLocation::distanceCheck(location::Location currentLocation, location::Location playlistLocation){
     double distLat = toRadians(playlistLocation.getLat() - currentLocation.getLat());
     double distLong = toRadians(playlistLocation.getLng() - currentLocation.getLng());
@@ -42,7 +65,14 @@ double saveLocation::distanceCheck(location::Location currentLocation, location:
     return distance;
 }
 
-//helper method to check if placing a new zone will overlap with the others
+
+/**
+ * @brief Checks if placing a new zone will overlap with existing zones.
+ * This is a helper method.
+ *
+ * @param targetLocation The location of the new zone.
+ * @return true if the new zone will overlap with existing zones, false otherwise.
+ */
 bool saveLocation::checkOverlap(location::Location targetLocation ){
 
     Metadata m = Metadata();
@@ -53,9 +83,6 @@ bool saveLocation::checkOverlap(location::Location targetLocation ){
     for (int i = 0; i < size; i++){
         location::Location playlistLoc = pV.at(i);
 
-//        double latDiffSquared = (playlistLoc.getLat() - targetLocation.getLat()) * (playlistLoc.getLat() - targetLocation.getLat());
-//        double lngDiffSquared = (playlistLoc.getLng() - targetLocation.getLng()) * (playlistLoc.getLng() - targetLocation.getLng());
-
         if ( distanceCheck(targetLocation, playlistLoc) <= 3.4){
             //if an overlap exists return true
             return true;
@@ -65,28 +92,57 @@ bool saveLocation::checkOverlap(location::Location targetLocation ){
     return false;
 }
 
+/**
+ * @brief Slot function that sets the member variables markerlatitude and markerlongitude to the
+ * values of the signal, which represent the latitude and longitude of a marker on a map.
+ * The function can be used to update the position of a marker on a map based on the
+ * values of the signal.
+ *
+ * @param number1 The latitude of the marker.
+ * @param number2 The longitude of the marker.
+ */
 void saveLocation::handleMySignal(double number1, double number2)
 {
     qDebug() << "Received signal with values: " << number1 << ", " << number2;
     this->markerlatitude = number1;
     this->markerlongitude = number2;
-    // Do something with the values here
 }
 
-
-
+/**
+ * @brief The destructor of the saveLocation class.
+ *
+ * This destructor deletes the user interface object of the saveLocation class.
+ * It is called when an instance of the class is destroyed, and it ensures that
+ * any memory allocated by the user interface object is properly freed.
+ */
 saveLocation::~saveLocation()
 {
     delete ui;
 }
 
+/**
+ * @brief Function that is called when the "Cancel" button is clicked 
+ * in the user interface of the saveLocation class. The function rejects the
+ * dialog, which closes the dialog without saving any changes. This function
+ * can be used to cancel any pending changes to the dialog and close it.
+ */
 void saveLocation::on_pushButton_cancel_clicked()
 {
     reject();
 }
 
 
-//called when they hit 'save' to make their new location
+/**
+ * @brief Slot function that is called when the "Save" button is clicked in the
+ * user interface of the saveLocation class to create a new location.
+ *
+ * The function reads the name of the new location from a text input field, and checks if a valid location has
+ * been selected on the map. If the inputs are valid and the new location does not overlap
+ * with any existing locations, it is added to a CSV file containing all the saved locations,
+ * and the dialog is closed. If the new location overlaps with an existing location, an error
+ * message is displayed and the location is not saved.
+ *
+ */
 void saveLocation::on_pushButton_saveNewLocation_clicked()
 {
 
@@ -120,9 +176,5 @@ void saveLocation::on_pushButton_saveNewLocation_clicked()
     } else {
         QMessageBox::information(this,"Error!" , "Your location overlaps with another! Please select another zone");
     }
-
-
-
-
 }
 

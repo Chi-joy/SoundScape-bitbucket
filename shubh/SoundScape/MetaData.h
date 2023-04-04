@@ -1,3 +1,12 @@
+/**
+
+@file Metadata.h
+@brief Header file for the Metadata class.
+This file contains the declaration of the Metadata class and its methods, which are responsible
+for building, writing, and appending data to a playlist metadata file and a location metadata file.
+It also includes the necessary header files and namespaces for its implementation.
+*/
+
 #ifndef METADATA_H
 #define METADATA_H
 #include <string.h>

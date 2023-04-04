@@ -1,5 +1,4 @@
 /**
-
 @brief The loginWindow class is responsible for handling user authentication through Spotify and Google APIs.
 This class is the initial window the user is presented with, and is responsible for handling user authentication
 through both Spotify and Google APIs. Upon successful authentication, the user will be directed to the playlist selection
@@ -627,7 +626,9 @@ void LoginWindow::on_pushButton_editLocation_clicked()
     }
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_createPMap_clicked() creates a new playlist map window
+ */
 void LoginWindow::on_pushButton_createPMap_clicked()
 {
     playlistMapWindow = new selectPlaylistWidget(this);
@@ -653,7 +654,9 @@ void LoginWindow::on_pushButton_createPMap_clicked()
     playlistMapWindow->show();
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_refreshLists_clicked() refreshes the lists in the UI
+ */
 void LoginWindow::on_pushButton_refreshLists_clicked()
 {
     setLists();
@@ -666,7 +669,9 @@ void LoginWindow::on_pushButton_editPMaps_clicked()
 
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_refreshLocation_clicked() refreshes the location of the user
+ */
 void LoginWindow::on_pushButton_refreshLocation_clicked()
 {
     gAPI->getLocation();
@@ -683,7 +688,9 @@ void LoginWindow::on_pushButton_refreshLocation_clicked()
 }
 
 
-
+/**
+ * @brief allows for custom coordinates to be entered for location
+ */
 void LoginWindow::on_pushButton_clicked()
 {
     bool ok;
@@ -699,7 +706,10 @@ void LoginWindow::on_pushButton_clicked()
     }
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_createPMap_clicked() creates a new playlist map window
+ * Allows for a new playlist map to be made
+ */
 void LoginWindow::on_pushButton_createPMap_clicked()
 {
     playlistMapWindow = new selectPlaylistWidget(this);
@@ -725,13 +735,17 @@ void LoginWindow::on_pushButton_createPMap_clicked()
     playlistMapWindow->show();
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_refreshLists_clicked() refreshes the lists in the UI
+ */
 void LoginWindow::on_pushButton_refreshLists_clicked()
 {
     setLists();
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_editPMaps_clicked() opens the edit playlist maps window
+ */
 void LoginWindow::on_pushButton_editPMaps_clicked()
 {
 
@@ -740,7 +754,9 @@ void LoginWindow::on_pushButton_editPMaps_clicked()
 
 }
 
-
+/**
+ * @brief LoginWindow::on_pushButton_refreshLocation_clicked() refreshes the location of the user
+ */
 void LoginWindow::on_pushButton_refreshLocation_clicked()
 {
     gAPI->getLocation();
@@ -758,7 +774,9 @@ void LoginWindow::on_pushButton_refreshLocation_clicked()
 
 
 
-
+/**
+ * @brief LoginWindow::on_pushButton_clicked() opens a window to allow the user to input a latitude and longitude and play a song
+ */
 void LoginWindow::on_pushButton_clicked()
 {
     bool ok;

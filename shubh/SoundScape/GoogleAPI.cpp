@@ -1,15 +1,8 @@
-/**
- * @file GoogleAPI.h
- * @brief Header file for the GoogleAPI class.
- * 
- * This file contains the declaration of the GoogleAPI class, which
- * is a class that handles cURL requests to fetch data from a specified URL.
- * 
- * The GoogleAPI class is defined in this header file, and it includes a constructor and two methods to execute the cURL request and get the location data from the response.
- * 
- * @author Shubh Fageria, Namashivayan Sivaram, Chi Zhang, Emily Chan, Valerie Lozano 
- * @date 2022-02-06
- */
+/*
+* Namashivayan Sivaram
+* Class for handling cURL requests, getting data
+* 2022-02-06
+*/
 #include "GoogleAPI.h"
 #include "json.hpp"
 
@@ -23,14 +16,11 @@ using json = nlohmann::json;
 GoogleAPI::GoogleAPI(string URL) {
     url = URL;
 }
-/**
-     * @brief Constructs a new GoogleAPI object.
-     * 
-     * This constructor creates a new GoogleAPI object with the given URL to perform
-     * cURL requests.
-     * 
-     * @param URL The URL to fetch data from using cURL requests.
-     */
+/*
+* execute()
+* fetches data using curl reqeust from given URL
+* returns true if request is success, otherwise false
+*/
 bool GoogleAPI::getLocation() {
     bool worked = true;
     CURL* curl;
@@ -73,28 +63,17 @@ bool GoogleAPI::getLocation() {
         ;
     }
     return(worked);
+
+
 }
-
-    /**
-     * @brief Returns the latitude obtained from the cURL request.
-     * 
-     * This method returns the latitude obtained from the cURL request.
-     * 
-     * @returns The latitude obtained from the cURL request.
-     */
-
+//get result of request
 double GoogleAPI::getLocationLat() {
     return lat;
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the
+    //method instance in the header file too
 }
-
-/**
-     * @brief Returns the longitude obtained from the cURL request.
-     * 
-     * This method returns the longitude obtained from the cURL request.
-     * 
-     * @returns The longitude obtained from the cURL request.
-     */
-
 double GoogleAPI::getLocationLng() {
     return lng;
+    //FOR CHI ********************* you want to change this to return yourLocation object i assume so youll have to change the
+    //method instance in the header file too
 }

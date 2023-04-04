@@ -37,4 +37,32 @@ void playlist::setPlaylistCoverURI(QString newCoverURI) {
         playlistCoverURI = newCoverURI;
 }
 
+/*
+commenting out the song methods since they need the api delegate set up
+
+
+// bool playlist::hasSong(QString songURI) {
+//     //iterate through song vector, using getSongURI()
+//     //return match if found
+//     //false if else
+// }
+
+// Song::song playlist::getSong(QString songURI) {
+//     //iterate through song vector, using getSongURI()
+//     //return match if found
+//     //false if else
+// }
+
+// somearray playlist::getSongURIs() {
+//     //iterate through song vector
+//     //save .getSongURI() response in array
+//     //return array
+
+// }
+
+// bool playlist::isPlaying(QString songURI) {
+//     //call to spotify api delegate and return response
+// }
+
+*/
 

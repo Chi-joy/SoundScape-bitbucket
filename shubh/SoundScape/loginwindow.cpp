@@ -22,6 +22,7 @@
 #include <QWaitCondition>
 #include <thread>
 #include <QNetworkReply>
+#include <QInputDialog>
 
 //actually the main window
 
@@ -258,11 +259,11 @@ Playlist::playlist checkMapChange(location::Location currentLocation){
             double lngDiffSquared = (playlistLoc.getLng() - currentLocation.getLng()) * (playlistLoc.getLng() - currentLocation.getLng());
 
             //if they're already in the map, dont send another copy of map
-            bool locationSame = tempMap.getLocation().getName() == currentMapp->getLocation().getName();
-            bool playlistSame = tempMap.getPlaylist().getPlaylistName() == currentMapp->getPlaylist().getPlaylistName();
-            if (locationSame && playlistSame ) {
-                continue;
-            }
+//            bool locationSame = tempMap.getLocation().getName() == currentMapp->getLocation().getName();
+//            bool playlistSame = tempMap.getPlaylist().getPlaylistName() == currentMapp->getPlaylist().getPlaylistName();
+//            if (locationSame && playlistSame ) {
+//                continue;
+//            }
 
             //get distance between coordinates
             if ( distanceCheck(currentLocation, playlistLoc) <= 3.4){
@@ -718,4 +719,20 @@ void LoginWindow::on_pushButton_refreshLocation_clicked()
 
 //}
 
+
+
+void LoginWindow::on_pushButton_clicked()
+{
+    bool ok;
+    double latitude = QInputDialog::getDouble(nullptr, "Input", "Enter latitude:", 0, -1000, 1000, 6, &ok);
+    double longitude = QInputDialog::getDouble(nullptr, "Input", "Enter longitude:", 0, -1000, 1000, 6, &ok);
+    //gAPI->getLocation();
+    location::Location newLoc(latitude, longitude);
+    //QString message = "LAT: " + QString::number(gAPI->getLocationLat());
+    //QMessageBox::information(this, "Error!", message);
+    Playlist::playlist p = checkMapChange(newLoc);
+    if (p.getPlaylistName() != "dummy") {
+        spotifyAPI->playSong(&p);
+    }
+}
 

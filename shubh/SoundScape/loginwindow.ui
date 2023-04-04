@@ -443,7 +443,7 @@ border-radius: 10px;</string>
        <x>0</x>
        <y>20</y>
        <width>171</width>
-       <height>161</height>
+       <height>131</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -451,19 +451,19 @@ border-radius: 10px;</string>
 color: black;</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>410</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Change Button Manually</string>
-    </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>150</y>
+       <width>171</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Change Location Manually</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

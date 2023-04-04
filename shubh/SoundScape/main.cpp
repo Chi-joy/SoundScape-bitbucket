@@ -1,3 +1,12 @@
+/**
+
+@file main.cpp
+@brief The main entry point for the SoundScape application.
+The SoundScape application provides a platform for music enthusiasts to discover new music based on their current location.
+The application uses the Spotify API to retrieve the user's playlists and the Google Geolocation API to determine the user's current location.
+@author Shubh Fageria, Namashivayan Sivaram, Chi Zhang, Emily Chan, Valerie Lozano
+*/
+
 #include "GoogleAPI.h"
 #include "loginwindow.h"
 #include "timer.h"
@@ -9,20 +18,14 @@
 #include <QThread>
 #include "QtCore/qtimer.h"
 
-//class MyClass : public QObject {
-//    Q_OBJECT
-//public:
-//    MyClass(QObject *parent = nullptr) : QObject(parent) {
-//        pingingBackground ping;
-//        QTimer * timer = new QTimer(this);
-//        QObject::connect(timer, &QTimer::timeout, &ping, &pingingBackground::pingLocation);
-//        timer->start(1000);
-//    }
-//};
+/**
 
-
-
-
+@brief The main function that runs the SoundScape application.
+This function initializes the application, loads translations, creates and shows the LoginWindow, and starts the event loop.
+@param argc The number of command-line arguments.
+@param argv The array of command-line arguments.
+@returns An integer value that indicates the exit status of the application.
+*/
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -40,12 +43,6 @@ int main(int argc, char *argv[])
 
     LoginWindow w;
     w.show();
-
-
-//    pingingBackground ping;
-//    QTimer timer;
-//    QObject::connect(&timer, &QTimer::timeout, &ping, &pingingBackground::pingLocation);
-//    timer.start(1000);
 
 
     return a.exec();

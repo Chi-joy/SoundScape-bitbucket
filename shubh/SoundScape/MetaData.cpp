@@ -1,13 +1,27 @@
+/**
+ * @file Metadata.cpp
+ * @brief Definition of Metadata class methods
+ */
+
 #include "Metadata.h"
 #include <QCoreApplication>
 using namespace std;
 using namespace Playlist;
 using namespace location;
+
+/**
+ * @brief Default constructor for Metadata class
+ */
 Metadata::Metadata()
 {
     //ctor
 }
 
+/**
+ * @brief Builds a vector of PlaylistMap objects from a CSV file
+ * @param fname Name of the CSV file to read from
+ * @return A vector of PlaylistMap objects
+ */
 vector<PlaylistMap> Metadata::buildData(string fname){
     vector<PlaylistMap> objects;
     qDebug() << "Current working directory:" << QDir::currentPath();
@@ -43,6 +57,13 @@ vector<PlaylistMap> Metadata::buildData(string fname){
 
     return objects;
 }
+
+/**
+ * @brief Writes a vector of PlaylistMap objects to a CSV file
+ * @param data A vector of PlaylistMap objects to write
+ * @param filename Name of the file to write to
+ * @return True if the write operation was successful, false otherwise
+ */
 bool Metadata::writeData(vector<PlaylistMap> data, string filename){
     std::ofstream outfile(filename);
     for (PlaylistMap& obj : data) {
@@ -53,6 +74,13 @@ bool Metadata::writeData(vector<PlaylistMap> data, string filename){
     return true;
 
 }
+
+/**
+ * @brief Appends a vector of PlaylistMap objects to an existing CSV file
+ * @param data A vector of PlaylistMap objects to append
+ * @param filename Name of the file to append to
+ * @return True if the append operation was successful, false otherwise
+ */
 bool Metadata::appendData(vector<PlaylistMap> data, string filename){
     std::ofstream outfile(filename, std::ios_base::app);
     for (PlaylistMap& obj : data) {
@@ -63,6 +91,15 @@ bool Metadata::appendData(vector<PlaylistMap> data, string filename){
     return true;
 
 }
+
+/**
+
+@brief Build a vector of Location objects from a file
+
+@param fname The name of the file to read from
+
+@return A vector of Location objects
+*/
 vector<Location> Metadata::buildDataLocation(string fname){
     vector<Location> objects;
         qDebug() << "Current working directory:" << QDir::currentPath();
@@ -94,6 +131,14 @@ vector<Location> Metadata::buildDataLocation(string fname){
 
         return objects;
 }
+
+/**
+
+@brief Writes the given data to a CSV file with the given filename in the application directory.
+@param data The vector of Location objects to be written to the file.
+@param filename The name of the file to write the data to.
+@return true if the file was written successfully, false otherwise.
+*/
 bool Metadata::writeDataLocation(vector<Location> data, string filename){
     QString filepath = QCoreApplication::applicationDirPath() + "/" + QString::fromStdString(filename);
     std::ofstream outfile(filepath.toStdString());

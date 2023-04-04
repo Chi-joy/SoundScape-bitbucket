@@ -27,9 +27,9 @@ song::song() {
  * 
  * This constructor creates a new Song object with the given song name, song URI, and song artist.
  * 
- * @param songName name of the song
- * @param songURI identifier for the song
- * @param songArtist song's artist
+ * @param songName Name of the song.
+ * @param songURI Identifier for the song.
+ * @param songArtist Song's artist.
  */
 song::song(QString songName, QString songURI, QString songArtist) {
     this->songName = songName;
@@ -47,7 +47,7 @@ song::~song() {
 /**
  * @brief Gets a song name.
  * 
- * @return songName returns a song name
+ * @return A song name.
  */
 QString song::getSongName() {
     return songName;
@@ -56,7 +56,7 @@ QString song::getSongName() {
 /**
  * @brief Gets a song identifier.
  *
- * @return songURI returns the song identifier 
+ * @return The song identifier.
  */
 QString song::getSongURI() {
     return songURI;
@@ -65,7 +65,7 @@ QString song::getSongURI() {
 /**
  * @brief Gets a song artist.
  * 
- * @return songArtist returns the song artist
+ * @return The song artist.
  */
 QString song::getSongArtist() {
     return songArtist;
@@ -74,7 +74,7 @@ QString song::getSongArtist() {
 /**
  * @brief Sets a song name.
  * 
- * @param newName the new song name
+ * @param newName The new song name.
  */
 void song::setSongName(QString newName) {
     songName = newName;
@@ -83,7 +83,7 @@ void song::setSongName(QString newName) {
 /**
  * @brief Sets a song identifier.
  * 
- * @param songURI the new song identifier
+ * @param songURI The new song identifier.
  */
 void song::setSongURI(QString songURI) {
     this->songURI = songURI;
@@ -92,7 +92,7 @@ void song::setSongURI(QString songURI) {
 /**
  * @brief Sets a song artist.
  * 
- * @param songArtist the new song artist
+ * @param songArtist The new song artist.
  */
 void song::setSongArtist(QString songArtist) {
     this->songArtist = songArtist;
